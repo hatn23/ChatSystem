@@ -2,40 +2,72 @@ import java.net.*;
 import java.util.*;
 
 public class User {
-	public String UserID;
-	private String UserIP;
-	private String Pseudonyme;
-	private boolean Active;
-	private int Port;
+	private String userID;
+	private String userIP;
+	private String pseudonyme;
+	private boolean active;
+	private int port;
 	
-	/*vérifier l'unicité!!!!!!!!!!!!!*/
+	public final static int portTCP = 1111;
+	public final static int portUDP = 1234;
+	
+	/*InetAddress ia = InetAddress.getLocalHost();
+	String addressIP = ia.getHostAddress();*/
+
+	
+	/* Constructors*/
+	public User(String ID) throws UnknownUserIDException {
+		this.userID = ID;
+		this.active = false;
+		this.port = portTCP;
+	}
+	
+	public User(String ID, String Pseudo) throws UnknownUserIDException {
+		this.userID = ID;
+		this.pseudonyme = Pseudo;
+		this.active = false;
+		this.port = portTCP;
+	}
+	
+	public User(String ID,String Pseudo, int Port) throws UnknownUserIDException {
+		this.userID = ID;
+		this.pseudonyme = Pseudo;
+		this.active = false;
+		this.port = Port;
+	}
+	
+	/*Methods*/
+	
+	public void setUserID(String ID) {
+		this.userID = ID;
+	}
+	public String getUserID() {
+		return this.userID;
+	}
+	public void setUserIP(String IP) {
+		this.userIP = IP;
+	}
+	public String getUserIP() {
+		return this.userIP;
+	}
+	/*verifier l'unicité!!!!!!!!!!!!!*/
 	public void SetPseudo(String NewPseudo) {
-		this.Pseudonyme = NewPseudo;
+		this.pseudonyme = NewPseudo;
 	}
-	
-	public String GetPseudo() {
-		return this.Pseudonyme;
+	public String getPseudo() {
+		return this.pseudonyme;
 	}
-	
-	public String GetUserIP() {
-		return this.UserIP;
+	public void setActive() {
+		this.active = true;
 	}
-	private String GetUserID() {
-		return this.UserID;
+	public Boolean isActive() {
+		return this.active;
 	}
-	
-	private Boolean IsActive() {
-		return this.Active;
+	public int getPort() {
+		 return this.port;
 	}
-	
-	private void SetActive() {
-		this.Active = true;
+	public void setPort(int Port) {
+		 this.port = Port;
 	}
-	
-	private void SetUserIP() {
-		this.UserIP = getHostAddress();
-	}
-	
-	
 	
 }
