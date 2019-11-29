@@ -8,8 +8,8 @@ public class User {
 	private boolean active;
 	private int port;
 	
-	public final static int portTCP = 1111;
-	public final static int portUDP = 1234;
+	private final static int portTCP = 1345;
+	private final static int portUDP = 1234;
 	
 	/*InetAddress ia = InetAddress.getLocalHost();
 	String addressIP = ia.getHostAddress();*/
