@@ -1,10 +1,11 @@
+package data;
 import java.net.*;
 import java.util.*;
 
 public class Interface {
 	private User user;
 	private ArrayList<User> onlineList; 
-	private String message;
+	private Message message;
 	
 	/* Constructors*/
 	
@@ -22,10 +23,10 @@ public class Interface {
 		return this.onlineList;
 	}
 	public String getMessage() {
-		return this.message;
+		return this.message.getMessage();
 	}
 	public void setMessage(String msg) {
-		this.message = msg;
+		this.message.setMessage(msg);
 	}
 
 	public void addOnlineUser (User newUser) {

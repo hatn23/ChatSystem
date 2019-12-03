@@ -1,6 +1,8 @@
+package network;
 import java.io.*;
 import java.net.*;
-
+import data.User;
+import data.Message;
 public class InterfaceReseaux {
 	private User user;
 	private int port;
