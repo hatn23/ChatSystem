@@ -10,12 +10,10 @@ public class TCPClient {
 	private static Socket socket;
 	private static User user;
 	private static Message message;
-	private int port;
 	private static String serverIP;
 	private static PrintWriter output;
 	private static BufferedReader input;
 	private static Scanner scanner;
-
 	
 	public static void main(String[] args) throws IOException {
 		socket = new Socket(InetAddress.getByName(serverIP), user.getPort());
