@@ -9,7 +9,7 @@ public class ChatWindow {
 	
 	private static void initChatWindow() {
 		frame.setSize(500,700);
-		button.setBounds(420,630,70,30);
+		button.setBounds(415,630,70,30);
 		textField.setEditable(true);
 		messageArea.setEditable(false);
 		messageArea.setBounds(30,30,430,520);

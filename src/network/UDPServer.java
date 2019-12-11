@@ -7,5 +7,25 @@ import java.io.*;
 public class UDPServer {
 	private static ServerSocket serverSocket;
 	private static DatagramPacket packet;
-	private static String addressIP;
+	private static Socket socket;
+	
+	public static void main(String[] args) throws IOException {
+		packet = new DatagramPacket(null, 0);
+		
+		Thread sendBroacast = new Thread (new Runnable() {
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 }
