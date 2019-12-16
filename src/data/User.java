@@ -10,7 +10,7 @@ public class User {
 	private int port;
 	
 	private final static int portTCP = 1345;
-	private final static int portUDP = 1234;
+	public final static int portUDP = 1234;
 	
 	/*InetAddress ia = InetAddress.getLocalHost();
 	String addressIP = ia.getHostAddress();*/
