@@ -1,5 +1,3 @@
-/.DS_Store
-/views/
 /network/
+/views/
 /data/
-/UDPServerThread.class

@@ -1,74 +1,54 @@
 package network;
 import java.net.*;
-import java.util.*;
 import java.io.*;
+
+import data.Interface;
 //import data.Message;
-//import data.User;
+import data.User;
 
 public class TCPServer {
-	
-	private static ServerSocket serverSocket;
-	private static Socket clientSocket;
-	//private static User user;
-	//private static Message message;
-	private static String serverIP;
-	private static PrintWriter output;
-	private static BufferedReader input;
-	private static Scanner scanner;
-	private static String msg;
-	
 
-	public static void main(String[] args) throws IOException {
-		//serverSocket = new ServerSocket(user.getPort());
-		serverSocket = new ServerSocket(4000);
-		clientSocket = serverSocket.accept();
-		output = new PrintWriter(clientSocket.getOutputStream());
-		input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		scanner = new Scanner(System.in);
-		
-		Thread send = new Thread(new Runnable() {
-			public void run() {
-				while(true) {
-					/*message.setSender(user.getPseudo());*/
-					//message.setMessage(scanner.nextLine());
-					//output.println(message.getMessage());
-					msg = scanner.nextLine();
-	                output.println(msg);
-					output.flush();
-					}
-				}
-		});
-		send.start();
-		
-		Thread receive = new Thread(new Runnable() {
-			public void run() {
-				while (true) {
-					try {
-						//message.setMessage(input.readLine());
-						msg = input.readLine();
-						//while user is still connected
-						/*while (message.getMessage()!= null){
-							System.out.println(message.getSender() + " : " + message.getMessage());
-							message.setMessage(input.readLine());
-						}*/
-						while(msg!=null){
-			                   System.out.println("Client : "+msg);
-			                   msg = input.readLine();
-			                }
-						System.out.println("Client is disconnected");
-						output.close();
-						clientSocket.close();
-						serverSocket.close();
-					}
-					catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		});
-		receive.start();
-		
+	private ServerSocket serverSocket = null;
+	private Socket chatSocket;
+	private Interface inter;
+	private boolean running = true;
+	//private History history
+
+	public TCPServer (Interface inter /*,History history*/) throws IOException {	
+		this.inter = inter;
+		//this.history = history;
+		this.serverSocket = new ServerSocket(User.portTCP);
+		this.inter.getUser().setPort(this.serverSocket.getLocalPort());
 	}
-	
 
+	public void terminate() throws IOException {
+		running = false;
+		this.serverSocket.close();
+		//this.chatSocket.close();
+	}
+
+
+	public void run() {
+		try {
+			while (running) {
+				System.out.println("[TCP] " + inter.getUser().getPseudo() + " is listening by TCP at port " + inter.getUser().getPort() + "...");
+				this.chatSocket = this.serverSocket.accept();
+
+				/* Receive the message */
+				BufferedReader in = new BufferedReader(new InputStreamReader(chatSocket.getInputStream()));
+				String message = in.readLine();
+
+				/* Write the message on the chat window between this node and client */
+				//Interface client = new Interface (new User(chatSocket.getInetAddress().getHostAddress()));
+				if (message != null) {
+					System.out.println(message);
+
+				}
+				//chatSocket.close();
+			}
+		}
+		catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
 }

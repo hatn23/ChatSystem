@@ -1,11 +1,13 @@
 package data;
 import java.net.*;
 import java.util.*;
+import views.*;
 
 public class Interface {
 	private User user;
 	private ArrayList<User> onlineList; 
 	private Message message;
+	private Home home;
 	
 	/* Constructors*/
 	
@@ -13,6 +15,7 @@ public class Interface {
 		this.user = user;
 		this.onlineList = new ArrayList();
 		this.message = null;
+		this.home = new Home(this);
 	}
 	
 	/*Methods*/
@@ -38,7 +41,33 @@ public class Interface {
 	}
 	
 	/*update user >>>> Broadcast UDP*/
-	public void updateOnlineList() {
+
+
+	public void updateOnlineList(User user2) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+
+	public void updateHome() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String findPseudobyIP(String host) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getChatWindowForUser(String host) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getHome() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -1,68 +1,46 @@
 package network;
 
 import java.net.*;
-import java.util.*;
 import java.io.*;
-//import data.User;
-//import data.Message;
+import data.User;
+import data.Message;
 
-public class TCPClient /*extends JFrame*/ {
-	
-	private static Socket clientSocket;
-	//private static User user;
-	//private static Message message;
-	private static String serverIP;
-	private static PrintWriter output;
-	private static BufferedReader input;
-	private static Scanner scanner;
-	private static String msg;
-	
-	public static void main(String[] args) throws IOException {
-		//clientSocket = new Socket(InetAddress.getByName(serverIP), user.getPort());
-		//new TCPClient().setVisible(true);
-		clientSocket = new Socket("127.0.0.1",4000);
-		output = new PrintWriter(clientSocket.getOutputStream());
-		input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		scanner = new Scanner(System.in);
-		Thread send = new Thread(new Runnable() {
-			public void run() {
-				while(true) {
-					
-					/*message.setSender(user.getPseudo());
-					message.setMessage(scanner.nextLine());
-					output.println(message.getMessage());*/
-					msg = scanner.nextLine();
-	                output.println(msg);
-					output.flush();
-				}
-			}
-		});
-		send.start();
-		
-		Thread receive = new Thread(new Runnable() {
-			public void run() {
-				while(true) {
-					try {
-						/*message.setMessage(input.readLine());
-						while (message.getMessage()!= null){
-							System.out.println(message.getSender() + " : " + message.getMessage());
-							message.setMessage(input.readLine());*/
-						msg = input.readLine();
-		                while(msg!=null){
-		                	System.out.println("Serveur : "+msg);
-		                	msg = input.readLine();
-		                 }
-						
-						System.out.println("Server disconnected");
-						output.close();
-						clientSocket.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		});
-		receive.start();
+public class TCPClient /*extends JFrame*/ implements Runnable {
+
+	private Socket chatSocket;
+	//private Message message;
+	private String message;
+	private String serverIP;
+	private PrintWriter output;
+	private int port;
+
+	public TCPClient(String IP, int port, String message) {
+		this.serverIP = IP;
+		this.port = port;
+		//this.message.setMessage(message);
+		this.message = message;
+
+	}
+
+
+	public void run() {
+		try {
+			//Request connection
+			System.out.println("connecting to port "+ port +" and host "+ serverIP);
+			chatSocket = new Socket(serverIP, User.portTCP);
+			//Initialize output
+			this.output = new PrintWriter( chatSocket.getOutputStream() );
+			//Send message
+			//output.println(message.getMessage());
+			output.println(message);
+			output.flush();
+			//Close socket
+			chatSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
+
+
