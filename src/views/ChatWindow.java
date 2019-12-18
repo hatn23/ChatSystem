@@ -27,6 +27,12 @@ public class ChatWindow {
 		initChatWindow();
 	}
 
+
+	public void closeWindow() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 }

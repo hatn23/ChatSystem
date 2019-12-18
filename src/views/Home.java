@@ -25,7 +25,7 @@ public class Home extends javax.swing.JFrame  {
   
     
     private void initWindows() {
-    	
+    
     	JFrame frame = new JFrame ("Login");
     	JTextField textField = new JTextField("TextField");
     	JTextArea messageArea = new JTextArea("TextArea");

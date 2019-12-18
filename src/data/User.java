@@ -45,7 +45,7 @@ public class User {
 		return this.userIP;
 	}
 	/*verifier l'unicité!!!!!!!!!!!!!*/
-	public void SetPseudo(String NewPseudo) {
+	public void setPseudo(String NewPseudo) {
 		this.pseudonyme = NewPseudo;
 	}
 	public String getPseudo() {

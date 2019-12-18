@@ -1,10 +1,7 @@
 package network;
 
 import java.net.*;
-import java.util.*;
-
 import data.Interface;
-
 import data.User;
 import java.io.*;
 import java.util.logging.Level;
