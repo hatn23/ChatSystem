@@ -3,7 +3,7 @@ import java.net.*;
 import java.util.*;
 
 public class User {
-	private String userIP;
+	private String host;
 	private String pseudonyme;
 	private boolean active;
 	private int port;
@@ -16,33 +16,33 @@ public class User {
 
 	
 	/* Constructors*/
-	public User(String IP) throws UnknownHostException {
-		this.userIP = IP;
+	public User(String host) throws UnknownHostException {
+		this.host = host;
 		this.active = false;
 		this.port = portTCP;
 	}
 	
-	public User(String IP, String Pseudo) throws UnknownHostException {
+	public User(String host, String Pseudo) throws UnknownHostException {
 		this.pseudonyme = Pseudo;
-		this.userIP = IP;
+		this.host = host;
 		this.active = false;
 		this.port = portTCP;
 	}
 	
-	public User(String IP,String Pseudo, int Port) throws UnknownHostException {
+	public User(String host,String Pseudo, int Port) throws UnknownHostException {
 		this.pseudonyme = Pseudo;
-		this.userIP = IP;
+		this.host = host;
 		this.active = false;
 		this.port = Port;
 	}
 	
 	/*Methods*/
 	
-	public void setUserIP(String IP) {
-		this.userIP = IP;
+	public void setUserIP(String host) {
+		this.host = host;
 	}
-	public String getUserIP() {
-		return this.userIP;
+	public String getHost() {
+		return this.host;
 	}
 	/*verifier l'unicité!!!!!!!!!!!!!*/
 	public void setPseudo(String NewPseudo) {

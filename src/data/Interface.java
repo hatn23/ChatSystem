@@ -42,7 +42,7 @@ public class Interface {
 	public void removeOfflineUser(User user) {
 		if (this.onlineList != null) {
 			for (User u : this.onlineList) {
-				if (u.getUserIP().equals(user.getUserIP()) && u.getPort() == user.getPort() && u.getPseudo().equals(user.getPseudo())) {
+				if (u.getHost().equals(user.getHost()) && u.getPort() == user.getPort() && u.getPseudo().equals(user.getPseudo())) {
 					this.onlineList.remove(u);
 				}
 			}
@@ -51,12 +51,12 @@ public class Interface {
 
 
 	public void updateOnlineList(User u) {
-		if (u.getUserIP().equals(this.user.getUserIP())) {
+		if (u.getHost().equals(this.user.getHost())) {
 			return;
 		}
 
 		for (User userInList : onlineList) {
-			if (userInList.getUserIP().equals(u.getUserIP())) {
+			if (userInList.getHost().equals(u.getHost())) {
 				System.out.println("[user] This user is already on the list!");
 				if (userInList.getPseudo().equals(u.getPseudo())) {
 				} else {
@@ -74,7 +74,7 @@ public class Interface {
 				return;
 			}
 		}
-		System.out.println("[user] New User: UserIP>" + u.getUserIP() + " Pseudo>" + u.getPseudo());
+		System.out.println("[user] New User: UserIP>" + u.getHost() + " Pseudo>" + u.getPseudo());
 		this.addOnlineUser(u);
 
 	}
@@ -89,7 +89,7 @@ public class Interface {
 
 	public InetAddress getBroadcast() throws UnknownHostException {
 
-		InetAddress myIpAddress = InetAddress.getByName(this.user.getUserIP());
+		InetAddress myIpAddress = InetAddress.getByName(this.user.getHost());
 		NetworkInterface temp;
 		InetAddress iAddr = null;
 		try {
@@ -111,7 +111,7 @@ public class Interface {
 	public String findPseudobyIP(String IP) {
 		String res = "";
 		for (User u : this.getOnlineList()) {
-			if (u.getUserIP().equals(IP)) {
+			if (u.getHost().equals(IP)) {
 				res = u.getPseudo();
 			}
 		}
@@ -119,7 +119,7 @@ public class Interface {
 	}
 
 	public void setChatWindowForPeer(User user, ChatWindow chatWindow) {
-		this.chatWindowForUser.put(user.getUserIP(), chatWindow);
+		this.chatWindowForUser.put(user.getHost(), chatWindow);
 	}
 
 	public ChatWindow getChatWindowForPeer(String ipAddress) {
@@ -127,7 +127,7 @@ public class Interface {
 	}
 
 	public boolean existChatWindow(User user) {
-		return this.chatWindowForUser.containsKey(user.getUserIP());
+		return this.chatWindowForUser.containsKey(user.getHost());
 	}
 
 	public void closeAllChatWindow() {

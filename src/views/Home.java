@@ -18,7 +18,7 @@ public class Home extends javax.swing.JFrame  {
         this.inter = inter;
         this.listFriendsOnlineModel = new DefaultListModel<>();
         for(User u : inter.getOnlineList()){
-            listFriendsOnlineModel.addElement(u.getPseudo()+ ":"+ u.getUserIP()+":"+u.getPort());
+            listFriendsOnlineModel.addElement(u.getPseudo()+ ":"+ u.getHost()+":"+u.getPort());
         }
         initWindows();
     }
