@@ -6,7 +6,7 @@ import data.Interface;
 //import data.Message;
 import data.User;
 
-public class TCPServer {
+public class TCPServer implements Runnable {
 
 	private ServerSocket serverSocket = null;
 	private Socket chatSocket;

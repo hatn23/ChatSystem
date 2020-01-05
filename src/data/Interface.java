@@ -78,7 +78,7 @@ public class Interface {
 		this.addOnlineUser(u);
 
 	}
-	public Object getHome() {
+	public Home getHome() {
 		return this.home;
 	}
 
@@ -134,6 +134,17 @@ public class Interface {
 		for (ChatWindow c : chatWindowForUser.values()) {
 			c.closeWindow();
 		}
+	}
+
+	public boolean checkPseudo() {
+		 Boolean res = true;
+	        for (User user : this.getOnlineList()) {
+	            System.out.println(user.getPseudo());
+	            if (this.getUser().getPseudo().equals(user.getPseudo())) {
+	                res = false;
+	            }
+	        }
+	        return res;
 	}
 
 
