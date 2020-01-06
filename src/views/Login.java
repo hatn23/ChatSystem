@@ -115,7 +115,6 @@ public class Login extends javax.swing.JFrame {
 	}
 	
 	protected void pseudoField(KeyEvent evt) {
-		// TODO Auto-generated method stub
 		if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (this.pseudoField.getText().equals("")) {
                 this.titleLabel.setText("User nickname cannot be empty.");
