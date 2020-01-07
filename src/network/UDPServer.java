@@ -26,6 +26,7 @@ public class UDPServer implements Runnable {
 		
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public void run() {
 		try {

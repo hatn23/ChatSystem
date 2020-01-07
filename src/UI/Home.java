@@ -30,10 +30,10 @@ public class Home extends javax.swing.JFrame  {
 		for(User u : inter.getOnlineList()){
 			onlineListModel.addElement(u.getPseudo()+ ":"+ u.getHost()+":"+u.getPort());
 		}
-		initWindows();
+		initComponents();
 	}
 
-	private void initWindows() {
+	private void initComponents() {
 
 		notifications = new JTextArea();
 		onlineList = new  JList<>();

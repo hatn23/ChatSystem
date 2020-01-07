@@ -15,7 +15,7 @@ public class Interface {
 
 	public Interface(User user) {
 		this.user = user;
-		this.onlineList = new ArrayList();
+		this.onlineList = new ArrayList<User>();
 		this.message = null;
 		this.home = new Home(this);
 		this.chatWindowForUser = new HashMap<>();
@@ -84,7 +84,16 @@ public class Interface {
 	}
 
 	public void updateHome() {
-		// TODO Auto-generated method stub
+		this.home.getOnlineList().removeAllElements();
+        for (User u : this.getOnlineList()) {
+            if (u.isActive() == true) {
+                if (u.getStatusNewMessage()) {
+                    this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
+                } else {
+                    this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
+                }
+            }
+        }
 
 	}
 

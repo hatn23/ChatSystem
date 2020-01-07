@@ -10,7 +10,8 @@ import java.util.logging.Logger;
 public class UDPClient implements Runnable {
 	private DatagramSocket dgramSocket;
     private final DatagramPacket outPacket;
-    private final String message;
+    @SuppressWarnings("unused")
+	private final String message;
 	
 	public UDPClient (String host, int port, String message) throws UnknownHostException {
 		this.message = message;

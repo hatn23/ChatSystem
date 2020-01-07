@@ -1,42 +1,105 @@
 package network;
 
 import java.net.*;
+import java.util.Base64;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import data.User;
-import data.Message;
+import data.Interface;
+//import data.Message;
+import java.io.ByteArrayOutputStream;
 
 public class TCPClient /*extends JFrame*/ implements Runnable {
 
 	private Socket chatSocket;
 	//private Message message;
 	private String message;
-	private String serverIP;
+	private String host;
 	private PrintWriter output;
+	private  int type;
 	private int port;
+	private File file;
+	private Interface inter;
 
-	public TCPClient(String IP, int port, String message) {
-		this.serverIP = IP;
+
+
+	public TCPClient(Interface inter, String host, int port, String message, int type) throws IOException {
+		this.inter = inter;
+		this.host = host;
 		this.port = port;
-		//this.message.setMessage(message);
 		this.message = message;
-
+		this.type = type;
+		this.file = null;
 	}
+
+	public TCPClient(Interface inter, String host, int port, File selectedFile, int type) throws IOException {
+		this.inter = inter;
+		this.host = host;
+		this.port = port;
+		this.file = selectedFile;
+		this.message = selectedFile.getName();
+		this.type = type;
+	}
+
+	public static String encodeToString(BufferedImage image, String type) {
+		String imageString = null;
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+		try {
+			ImageIO.write(image, type, bos);
+			byte[] imageBytes = bos.toByteArray();
+			imageString = Base64.getEncoder().encodeToString(imageBytes);
+
+			bos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return imageString;
+	}
+
 
 
 	public void run() {
 		try {
-			//Request connection
-			System.out.println("connecting to port "+ port +" and host "+ serverIP);
-			chatSocket = new Socket(serverIP, User.portTCP);
-			//Initialize output
-			this.output = new PrintWriter( chatSocket.getOutputStream() );
-			//Send message
-			//output.println(message.getMessage());
-			output.println(message);
-			output.flush();
-			//Close socket
-			chatSocket.close();
-		} catch (IOException e) {
+			switch (type) {
+			case 1: //Text Message
+				/* Request a connection to the given User  */
+				System.out.println("connecting to port " + port + " and host " + host);
+				chatSocket = new Socket(host, User.portTCP);
+				/* Initialization the outputput channel */
+				this.output = new PrintWriter(chatSocket.getOutputStream());
+
+				/* Send the message...*/
+				output.println(message + ":" + this.inter.getUser().getPseudo() + ":" + this.inter.getUser().getPort());
+				output.flush();
+				/* Close the socket */
+				chatSocket.close();
+				break;
+			case 2: //Image Message
+				String path = this.file.getAbsoluteFile().toString();
+				String[] split = path.split("[.]");
+				String ext = split[1];
+				System.out.println("Sending: " + path + " extension: " + ext);
+				System.out.println("Sending Image!");
+
+				chatSocket = new Socket(host, User.portTCP);
+
+				BufferedImage bimg = ImageIO.read(this.file);
+				String imgAsString = encodeToString(bimg, ext);
+
+				this.output = new PrintWriter(chatSocket.getOutputStream());
+				output.println(imgAsString + ":" + this.inter.getUser().getPseudo() + ":" + ext + ":" + this.file.getName());
+				System.out.println("FILE NAME: " + this.file.getName());
+				output.flush();
+				chatSocket.close();
+				break;
+			default:
+				System.out.println("Invalid type of message");
+				break;
+			} 
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

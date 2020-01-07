@@ -1,23 +1,18 @@
 package UI;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.awt.*;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import static java.lang.Thread.sleep;
 
 import data.*;
 import network.*;
 
+@SuppressWarnings("serial")
 public class Login extends javax.swing.JFrame {
 
 	private Interface inter;
@@ -27,16 +22,16 @@ public class Login extends javax.swing.JFrame {
 	static UDPServer runnableUDP = null;
 
 	public Login() {
-		initWindows();
+		initComponents();
 	}
 
 	public Login(Interface inter) {
 		this.inter = inter;
-		initWindows();
+		initComponents();
 		hostField.setText(inter.getUser().getHost());
 	}
 
-	private void initWindows() {
+	private void initComponents() {
 		hostLabel = new javax.swing.JLabel();
 		pseudoLabel = new javax.swing.JLabel();
 		pseudoField = new javax.swing.JTextField();
