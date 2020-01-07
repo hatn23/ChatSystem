@@ -1,4 +1,4 @@
-package views;
+package UI;
 
 public interface WritableWindows {
 	

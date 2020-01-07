@@ -1,7 +1,8 @@
 package data;
 import java.net.*;
 import java.util.*;
-import views.*;
+
+import UI.*;
 
 public class Interface {
 	private User user;
@@ -118,11 +119,11 @@ public class Interface {
 		return res;
 	}
 
-	public void setChatWindowForPeer(User user, ChatWindow chatWindow) {
+	public void setChatWindowForUser(User user, ChatWindow chatWindow) {
 		this.chatWindowForUser.put(user.getHost(), chatWindow);
 	}
 
-	public ChatWindow getChatWindowForPeer(String ipAddress) {
+	public ChatWindow getChatWindowForUser(String ipAddress) {
 		return this.chatWindowForUser.get(ipAddress);
 	}
 

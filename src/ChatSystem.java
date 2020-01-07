@@ -1,6 +1,6 @@
 import data.*;
 import network.*;
-import views.*;
+import UI.*;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.InterfaceAddress;

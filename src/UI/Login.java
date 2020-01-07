@@ -1,4 +1,4 @@
-package views;
+package UI;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
