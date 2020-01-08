@@ -1,19 +1,17 @@
 package UI;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.WindowConstants;
+import java.util.logging.*;
+import javax.swing.*;
 import static java.lang.Thread.sleep;
 
 import data.*;
 import network.*;
 
 @SuppressWarnings("serial")
-public class Login extends javax.swing.JFrame {
+public class Login extends JFrame {
 
 	private Interface inter;
 	static Thread listenTCP = null;
@@ -32,80 +30,84 @@ public class Login extends javax.swing.JFrame {
 	}
 
 	private void initComponents() {
-		hostLabel = new javax.swing.JLabel();
-		pseudoLabel = new javax.swing.JLabel();
-		pseudoField = new javax.swing.JTextField();
-		hostField = new javax.swing.JTextField();
-		titleLabel = new javax.swing.JLabel();
-		logInButton = new javax.swing.JButton();
+		hostLabel = new JLabel();
+		pseudoLabel = new JLabel();
+		pseudoField = new JTextField();
+		hostField = new JTextField();
+		titleLabel = new JLabel();
+		logInButton = new JButton();
+		
+		setSize(300,700);
+		setResizable(false);
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		addWindowListener(new java.awt.event.WindowAdapter() {
-			public void windowClosing(java.awt.event.WindowEvent evt) {
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent evt) {
 				closeWindow(evt);
 			}
 		});
-		hostLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		hostLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		hostLabel.setText("Your host :");
-
-		pseudoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		pseudoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		pseudoLabel.setText("Your pseudo :");
 
-		pseudoField.addKeyListener(new java.awt.event.KeyAdapter() {
-			public void keyPressed(java.awt.event.KeyEvent evt) {
+		pseudoField.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent evt) {
 				pseudoField(evt);
 			}
 		});
 
 		hostField.setEditable(false);
 		hostField.setText("localhost");
-		titleLabel.setForeground(new java.awt.Color(250, 0, 0));
-		titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		titleLabel.setForeground(new Color(250, 0, 0));
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setText("User Login");
 		logInButton.setText("Log in");
-		logInButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+		logInButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
 				loginButton(evt);
 			}
 		});
+	
 		
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(21)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(hostField)
                     .addComponent(pseudoField)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pseudoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(hostLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(titleLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pseudoLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(hostLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(logInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addGap(110)
+                .addComponent(logInButton, GroupLayout.PREFERRED_SIZE,  80, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(0)
+                .addComponent(titleLabel, GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE , Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pseudoLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pseudoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pseudoField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(hostLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(hostField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(hostField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logInButton)
                 .addContainerGap())
         );
+        
 
-        pack();
+        //pack();
 
 	}
 	
@@ -221,7 +223,7 @@ public class Login extends javax.swing.JFrame {
 		
 	}
 
-	private void closeWindow (java.awt.event.WindowEvent evt) {
+	private void closeWindow (WindowEvent evt) {
         try {
             new UDPClientThread().sendDisconnect(inter);
         } catch (UnknownHostException ex) {
@@ -239,12 +241,12 @@ public class Login extends javax.swing.JFrame {
 	}
 
 
-	private javax.swing.JTextField hostField;
-	private javax.swing.JLabel hostLabel;
-	private javax.swing.JButton logInButton;
-	private javax.swing.JTextField pseudoField;
-	private javax.swing.JLabel pseudoLabel;
-	private javax.swing.JLabel titleLabel;
+	private JTextField hostField;
+	private JLabel hostLabel;
+	private JButton logInButton;
+	private JTextField pseudoField;
+	private JLabel pseudoLabel;
+	private JLabel titleLabel;
 
 
 }
