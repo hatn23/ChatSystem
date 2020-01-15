@@ -65,22 +65,22 @@ public class Interface {
 					this.message = " Name change " + userInList.getPseudo() + " > " + u.getPseudo();
 				}
 				if (u.isActive() == true) {
-					System.out.println(" Status : connected ");
+					System.out.println(" Status:connected ");
 					userInList.setActive(true);
 				} else {
-					System.out.println(" Status : disconnected ");
+					System.out.println(" Status:disconnected ");
 					userInList.setActive(false);
 				}
 				if (u.getStatusNewMessage() == false) {
                     userInList.setNewMessage(false);
                 } else {
-                    System.out.println(" New Message Status : new message ");
+                    System.out.println(" New Message Status:new message ");
                     userInList.setNewMessage(true);
                 }
 				return;
 			}
 		}
-		System.out.println("[user] New User: UserIP>" + u.getHost() + " Pseudo>" + u.getPseudo());
+		System.out.println("[user] New User:UserIP>" + u.getHost() + " Pseudo>" + u.getPseudo());
 		this.addOnlineUser(u);
 
 	}

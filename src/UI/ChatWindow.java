@@ -28,10 +28,10 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
 		initComponents();
 		this.inter = inter;
 		this.client = client;
-		this.pseudoLabel.setText("Pseudo : " + inter.getUser().getPseudo());
-		this.hostLabel.setText("My Host : " + inter.getUser().getHost());
+		this.pseudoLabel.setText("Pseudo: " + inter.getUser().getPseudo());
+		this.hostLabel.setText("My Host: " + inter.getUser().getHost());
 		sourceport = inter.getUser().getPort();
-		this.clientLabel.setText("To : " + client.getUser().getPseudo() + " at " + client.getUser().getHost());
+		this.clientLabel.setText("To: " + client.getUser().getPseudo() + " at " + client.getUser().getHost());
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -79,7 +79,7 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
         });
 
         pseudoLabel.setForeground(new java.awt.Color(238, 238, 238));
-        pseudoLabel.setText("Nickname : ");
+        pseudoLabel.setText("Username : ");
 
         hostLabel.setText("My Host :");
 
@@ -90,7 +90,7 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
             }
         });
 
-        clientLabel.setText("To :");
+        clientLabel.setText("To:");
 
         sendImageButton.setText("Send Image");
         sendImageButton.addActionListener(new java.awt.event.ActionListener() {

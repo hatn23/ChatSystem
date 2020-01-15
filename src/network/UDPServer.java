@@ -11,13 +11,13 @@ public class UDPServer implements Runnable {
 	 private final Interface inter;
 	 private final DatagramSocket dgramSocket;
 	 private final DatagramPacket inPacket;
-	 private boolean running = true;
+	 private volatile boolean running = true;
 	 
 	 public UDPServer(Interface inter) throws SocketException{
-		 this.inter = inter;
-		 this.dgramSocket = new DatagramSocket(User.portUDP);
-		 byte[] buffer = new byte[256];
-	     this.inPacket = new DatagramPacket(buffer, buffer.length);
+            this.inter = inter;
+            this.dgramSocket = new DatagramSocket(User.portUDP);
+            byte[] buffer = new byte[256];
+            this.inPacket = new DatagramPacket(buffer, buffer.length);
 	 }
 	 
 	
@@ -35,9 +35,10 @@ public class UDPServer implements Runnable {
 			while (running) {
 				this.dgramSocket.receive(this.inPacket);
                 String msg = new String(inPacket.getData(), 0, inPacket.getLength());
-                String seg[] = msg.split(":");
+                String[] seg = msg.split(":");
                 String pseudo = seg[0];
-                int port = Integer.parseInt(seg[1]);
+                //int port = Integer.parseInt(seg[1]);
+                String port = seg[1];
                 msg = seg[2];
                 String host = inPacket.getAddress().getHostAddress();
                 
