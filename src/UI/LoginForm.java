@@ -67,19 +67,13 @@ public class LoginForm extends javax.swing.JFrame {
         jLabelPseudo = new javax.swing.JLabel();
         jLabelHost = new javax.swing.JLabel();
         jTextFieldHost = new javax.swing.JTextField();
-        jTextFieldPseudo = new javax.swing.JTextField();
         jButtonCancel = new javax.swing.JButton();
         jButtonLogin = new javax.swing.JButton();
         jLabelWarning = new javax.swing.JLabel();
+        jTextFieldPseudo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent evt) {
-				closeWindow(evt);
-			}
-		});
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(400, 340));
 
         jPanel1.setBackground(new java.awt.Color(211, 84, 0));
 
@@ -144,23 +138,12 @@ public class LoginForm extends javax.swing.JFrame {
         jTextFieldHost.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldHost.setForeground(new java.awt.Color(228, 241, 254));
         jTextFieldHost.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextFieldHost.setEditable(false);
-       
 
-        jTextFieldPseudo.setBackground(new java.awt.Color(108, 122, 137));
-        jTextFieldPseudo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextFieldPseudo.setForeground(new java.awt.Color(228, 241, 254));
-        jTextFieldPseudo.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextFieldPseudo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(KeyEvent evt) {
-                jTextFieldPseudoActionPerformed(evt);
-            }
-        });
-
-        jButtonCancel.setBackground(new java.awt.Color(192, 57, 43));
+        jButtonCancel.setBackground(new java.awt.Color(255, 102, 102));
         jButtonCancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButtonCancel.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCancel.setForeground(new java.awt.Color(0, 0, 0));
         jButtonCancel.setText("Cancel");
+        jButtonCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelActionPerformed(evt);
@@ -171,6 +154,7 @@ public class LoginForm extends javax.swing.JFrame {
         jButtonLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonLogin.setForeground(new java.awt.Color(255, 255, 255));
         jButtonLogin.setText("Login");
+        jButtonLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLoginActionPerformed(evt);
@@ -178,38 +162,46 @@ public class LoginForm extends javax.swing.JFrame {
         });
 
         jLabelWarning.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabelWarning.setForeground(new java.awt.Color(192, 57, 43));
+        jLabelWarning.setForeground(new java.awt.Color(255, 148, 120));
+        jLabelWarning.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelWarning.setText("Warning"); // NOI18N
+
+        jTextFieldPseudo.setBackground(new java.awt.Color(108, 122, 137));
+        jTextFieldPseudo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldPseudo.setForeground(new java.awt.Color(228, 241, 254));
+        jTextFieldPseudo.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextFieldPseudo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldPseudoKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(17, 17, 17)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelPseudo)
+                    .addComponent(jLabelHost))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelPseudo)
-                            .addComponent(jLabelHost))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                                .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextFieldHost, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextFieldPseudo, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(171, 171, 171)
-                        .addComponent(jLabelWarning)))
+                        .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldHost, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextFieldPseudo))
                 .addContainerGap(33, Short.MAX_VALUE))
+            .addComponent(jLabelWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabelWarning)
-                .addGap(42, 42, 42)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPseudo)
                     .addComponent(jTextFieldPseudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -217,7 +209,7 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelHost)
                     .addComponent(jTextFieldHost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -236,69 +228,11 @@ public class LoginForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-  
-
-    protected void jTextFieldPseudoActionPerformed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPseudoActionPerformed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (this.jTextFieldPseudo.getText().equals("")) {
-                this.jLabelWarning.setText("User nickname cannot be empty.");
-            } else {
-                try {
-                    this.jLabelWarning.setText("Connecting... Please Wait");
-                    /* Create a node with the nickname and the host address */
-                    User user = new User(jTextFieldPseudo.getText(), jTextFieldHost.getText());
-                    this.inter = new Interface(user);
-                    
-
-                    /* Start a server thread TCP to listen */
-                    if (listenTCP != null && runnableTCP != null) {
-                        runnableTCP.terminate();
-                        listenTCP.join();
-                    }
-                    runnableTCP = new TCPServer(this.inter);
-                    listenTCP = new Thread(runnableTCP);
-                    listenTCP.start();
-
-                    /* This thread is used to receive le broadcast by UDP*/
-                    if (listenUDP != null && runnableUDP != null) {
-                        runnableUDP.terminate();
-                        listenUDP.join();
-                    }
-                    runnableUDP = new UDPServer(this.inter);
-                    listenUDP = new Thread(runnableUDP);
-                    listenUDP.start();
-
-                    /* Send a broadcast when log in*/
-                    new UDPClientThread().sendBroadcast(this.inter);
-
-                    /* Open home if the nickname is unique*/
-                    sleep(10);
-                    if (this.inter.checkPseudo()) {
-                        new UDPClientThread().sendBroadcast(this.inter);
-                        this.inter.getHome().display();
-                        this.setVisible(false);
-                        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                        this.dispose();
-                    } else {
-                        new UDPClientThread().sendDisconnect(this.inter);
-                        this.jLabelWarning.setText("WARNING : This name has been used !");
-                    }
-                    System.out.println(this.inter);
-                    System.out.println(this.inter.checkPseudo());
-
-                } catch (IOException | InterruptedException ex) {
-                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            }
-        }
-    }//GEN-LAST:event_jTextFieldPseudoActionPerformed
 
     protected void jLabelCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCloseMouseClicked
         System.exit(0);
@@ -365,6 +299,62 @@ public class LoginForm extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jButtonLoginActionPerformed
+
+    private void jTextFieldPseudoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPseudoKeyPressed
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (this.jTextFieldPseudo.getText().equals("")) {
+                this.jLabelWarning.setText("User nickname cannot be empty.");
+            } else {
+                try {
+                    this.jLabelWarning.setText("Connecting... Please Wait");
+                    /* Create a node with the nickname and the host address */
+                    User user = new User(jTextFieldPseudo.getText(), jTextFieldHost.getText());
+                    this.inter = new Interface(user);
+                    
+
+                    /* Start a server thread TCP to listen */
+                    if (listenTCP != null && runnableTCP != null) {
+                        runnableTCP.terminate();
+                        listenTCP.join();
+                    }
+                    runnableTCP = new TCPServer(this.inter);
+                    listenTCP = new Thread(runnableTCP);
+                    listenTCP.start();
+
+                    /* This thread is used to receive le broadcast by UDP*/
+                    if (listenUDP != null && runnableUDP != null) {
+                        runnableUDP.terminate();
+                        listenUDP.join();
+                    }
+                    runnableUDP = new UDPServer(this.inter);
+                    listenUDP = new Thread(runnableUDP);
+                    listenUDP.start();
+
+                    /* Send a broadcast when log in*/
+                    new UDPClientThread().sendBroadcast(this.inter);
+
+                    /* Open home if the nickname is unique*/
+                    sleep(10);
+                    if (this.inter.checkPseudo()) {
+                        new UDPClientThread().sendBroadcast(this.inter);
+                        this.inter.getHome().display();
+                        this.setVisible(false);
+                        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        this.dispose();
+                    } else {
+                        new UDPClientThread().sendDisconnect(this.inter);
+                        this.jLabelWarning.setText("WARNING : This name has been used !");
+                    }
+                    System.out.println(this.inter);
+                    System.out.println(this.inter.checkPseudo());
+
+                } catch (IOException | InterruptedException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+    }//GEN-LAST:event_jTextFieldPseudoKeyPressed
     
 	public void display(){
         this.setLocationRelativeTo(null); 
