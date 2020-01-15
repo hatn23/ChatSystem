@@ -7,16 +7,15 @@ import UI.*;
 public class Interface {
 	private User user;
 	private ArrayList<User> onlineList; 
-	private Message message;
+	private String message = " ";
 	private Home home;
-	private final HashMap<String, ChatWindow> chatWindowForUser;//String -> ipAddress
+	private final HashMap<String, ChatWindow> chatWindowForUser;
 
 	/* Constructors*/
 
 	public Interface(User user) {
 		this.user = user;
 		this.onlineList = new ArrayList<User>();
-		this.message = null;
 		this.home = new Home(this);
 		this.chatWindowForUser = new HashMap<>();
 
@@ -30,10 +29,10 @@ public class Interface {
 		return this.onlineList;
 	}
 	public String getMessage() {
-		return this.message.getMessage();
+		return this.message;
 	}
 	public void setMessage(String msg) {
-		this.message.setMessage(msg);
+		this.message = msg;
 	}
 
 	public void addOnlineUser (User newUser) {
@@ -63,7 +62,7 @@ public class Interface {
 				} else {
 					System.out.println(" Name change " + userInList.getPseudo() + " > " + u.getPseudo());
 					userInList.setPseudo(u.getPseudo());
-					this.message.setMessage(" Name change " + userInList.getPseudo() + " > " + u.getPseudo());
+					this.message = " Name change " + userInList.getPseudo() + " > " + u.getPseudo();
 				}
 				if (u.isActive() == true) {
 					System.out.println(" Status : connected ");
@@ -72,6 +71,12 @@ public class Interface {
 					System.out.println(" Status : disconnected ");
 					userInList.setActive(false);
 				}
+				if (u.getStatusNewMessage() == false) {
+                    userInList.setNewMessage(false);
+                } else {
+                    System.out.println(" New Message Status : new message ");
+                    userInList.setNewMessage(true);
+                }
 				return;
 			}
 		}
@@ -91,6 +96,10 @@ public class Interface {
                     this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
                 } else {
                     this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
+                }
+                if (!this.existChatWindow(u)) { 
+                    ChatWindow chatWindow = new ChatWindow(this, new Interface(u));
+                    this.setChatWindowForUser(u, chatWindow);
                 }
             }
         }
@@ -156,6 +165,7 @@ public class Interface {
 	        }
 	        return res;
 	}
+	
 
 
 

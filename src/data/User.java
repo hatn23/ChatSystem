@@ -39,11 +39,11 @@ public class User {
 		this.newMessage = false;
 	}
 	
-	public User(String host,String Pseudo, int Port, Boolean newMessage) throws UnknownHostException {
+	public User(String host,String Pseudo, Boolean newMessage) throws UnknownHostException {
 		this.pseudonyme = Pseudo;
 		this.host = host;
 		this.active = false;
-		this.port = Port;
+		this.port = portTCP;
 		this.newMessage = newMessage;
 	}
 	
@@ -76,6 +76,11 @@ public class User {
 	}
 	public Boolean getStatusNewMessage() {
 		return this.newMessage;
+	}
+
+	public void setNewMessage(boolean newMsg) {
+		this.newMessage = newMsg;
+		
 	}
 	
 }

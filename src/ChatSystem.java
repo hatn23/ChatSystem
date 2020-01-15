@@ -12,7 +12,7 @@ public class ChatSystem {
 	        String ip = getLocalAddress().getHostAddress();
 	        Interface inter = new Interface(new User(ip));
 
-	        Login loginWindow = new Login(inter);
+	        LoginForm loginWindow = new LoginForm(inter);
 	        loginWindow.display();
 	    }
 
