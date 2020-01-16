@@ -1,6 +1,8 @@
 package data;
+import java.io.Serializable;
 import java.util.*;
-public class Message {
+@SuppressWarnings("serial")
+public class Message implements Serializable {
 	private User sender = null;
 	private User receiver = null;
 	private String senderHost;
@@ -8,6 +10,7 @@ public class Message {
 	private int receiverPort;
 	private ArrayList<String> message;
 	private int ind = 0;
+	private Date date = null;
 	
 	
 	public Message(User from, User to) {
@@ -47,6 +50,13 @@ public class Message {
 	public int getReceiverPort() {
         return this.receiverPort;
     }
+	
+	public Date getDate() {
+		return this.date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
 	
 	@Override
     public String toString() {
