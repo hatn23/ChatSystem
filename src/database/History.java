@@ -39,7 +39,7 @@ public class History {
 			conn=Database.establish_Connection();
 			String sql = ("INSERT into Message (Sender_IP , Receiver_IP, Text, Time) ") 
 					+ (" VALUES (" + msg.getSender() + "," + msg.getReceiver() 
-					+ msg.getMessage() + "," + msg.getDate() +");");
+					+ msg.getMessage() + "," + "msg.getDate()" +");");
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 		
