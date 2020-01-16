@@ -1,13 +1,12 @@
 package data;
 import java.net.*;
-import java.util.*;
 
 public class User {
 	private String host;
 	private String pseudonyme;
 	private boolean active;
 	private int port;
-	
+		
 	public final static int portTCP = 1345;
 	public final static int portUDP = 1234;
 	
@@ -48,6 +47,7 @@ public class User {
 	public void setPseudo(String NewPseudo) {
 		this.pseudonyme = NewPseudo;
 	}
+
 	public String getPseudo() {
 		return this.pseudonyme;
 	}
