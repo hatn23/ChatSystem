@@ -16,6 +16,7 @@ import network.UDPClientThread;
 public class ChangePseudo extends javax.swing.JFrame {
 	
 	private Home home;
+        private HomeForm homeForm;
 	private Interface inter;
 	private Boolean confirm = false;
 	
@@ -23,6 +24,12 @@ public class ChangePseudo extends javax.swing.JFrame {
 	public ChangePseudo(Interface inter, Home home) {
 		initWindow();
 		this.home = home;
+		this.inter = inter;
+	}
+        
+        public ChangePseudo(Interface inter, HomeForm home) {
+		initWindow();
+		this.homeForm = home;
 		this.inter = inter;
 	}
 
