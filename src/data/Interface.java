@@ -7,7 +7,7 @@ import UI.*;
 public class Interface {
 	private User user;
 	private ArrayList<User> onlineList; 
-	private String message = " ";
+	private String message = "";
 	private Home home;
 	private final HashMap<String, ChatWindow> chatWindowForUser;
 
@@ -15,7 +15,7 @@ public class Interface {
 
 	public Interface(User user) {
 		this.user = user;
-		this.onlineList = new ArrayList<User>();
+		this.onlineList = new ArrayList();
 		this.home = new Home(this);
 		this.chatWindowForUser = new HashMap<>();
 
@@ -24,6 +24,9 @@ public class Interface {
 	/*Methods*/
 	public User getUser() {
 		return this.user;
+	}
+	public String userName(){
+		return this.user.getPseudo();
 	}
 	public ArrayList<User> getOnlineList(){
 		return this.onlineList;
@@ -34,6 +37,11 @@ public class Interface {
 	public void setMessage(String msg) {
 		this.message = msg;
 	}
+	
+	public void update(User newUser) {
+        this.user = newUser;
+    }
+	
 
 	public void addOnlineUser (User newUser) {
 		this.onlineList.add(newUser);
@@ -57,7 +65,7 @@ public class Interface {
 
 		for (User userInList : onlineList) {
 			if (userInList.getHost().equals(u.getHost())) {
-				System.out.println("[user] This user is already on the list!");
+				System.out.println("[user] This user is already on the list");
 				if (userInList.getPseudo().equals(u.getPseudo())) {
 				} else {
 					System.out.println(" Name change " + userInList.getPseudo() + " > " + u.getPseudo());
@@ -72,11 +80,11 @@ public class Interface {
 					userInList.setActive(false);
 				}
 				if (u.getStatusNewMessage() == false) {
-                    userInList.setNewMessage(false);
-                } else {
-                    System.out.println(" New Message Status:new message ");
-                    userInList.setNewMessage(true);
-                }
+					userInList.setNewMessage(false);
+				} else {
+					System.out.println(" New Message Status:new message ");
+					userInList.setNewMessage(true);
+				}
 				return;
 			}
 		}
@@ -90,19 +98,19 @@ public class Interface {
 
 	public void updateHome() {
 		this.home.getOnlineList().removeAllElements();
-        for (User u : this.getOnlineList()) {
-            if (u.isActive() == true) {
-                if (u.getStatusNewMessage()) {
-                    this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
-                } else {
-                    this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
-                }
-                if (!this.existChatWindow(u)) { 
-                    ChatWindow chatWindow = new ChatWindow(this, new Interface(u));
-                    this.setChatWindowForUser(u, chatWindow);
-                }
-            }
-        }
+		for (User u : this.getOnlineList()) {
+			if (u.isActive() == true) {
+				if (u.getStatusNewMessage()) {
+					this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
+				} else {
+					this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
+				}
+				if (!this.existChatWindow(u)) { 
+					ChatWindow chatWindow = new ChatWindow(this, new Interface(u));
+					this.setChatWindowForUser(u, chatWindow);
+				}
+			}
+		}
 
 	}
 
@@ -156,16 +164,26 @@ public class Interface {
 	}
 
 	public boolean checkPseudo() {
-		 Boolean res = true;
-	        for (User user : this.getOnlineList()) {
-	            System.out.println(user.getPseudo());
-	            if (this.getUser().getPseudo().equals(user.getPseudo())) {
-	                res = false;
-	            }
-	        }
-	        return res;
+		Boolean res = true;
+		for (User user : this.getOnlineList()) {
+			System.out.println(user.getPseudo());
+			if (this.getUser().getPseudo().equals(user.getPseudo())) {
+				res = false;
+			}
+		}
+		return res;
 	}
 	
+	@Override
+    public String toString() {
+        String str = "This peer is " + this.user.toString() + " and his friends list :\n";
+        for (User u : onlineList) {
+            str += "- " + u.toString() + "\n";
+        }
+        return str;
+    }
+	
+
 
 
 

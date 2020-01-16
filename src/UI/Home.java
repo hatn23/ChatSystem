@@ -31,6 +31,7 @@ public class Home extends javax.swing.JFrame  {
 			onlineListModel.addElement(u.getPseudo()+ ":"+ u.getHost()+":"+u.getPort());
 		}
 		initComponents();
+                this.pseudoLabel.setText("Your nickname : " + inter.getUser().getPseudo());
 	}
 
 	private void initComponents() {
@@ -46,6 +47,7 @@ public class Home extends javax.swing.JFrame  {
 		titleLabel = new JLabel();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                setTitle("Home - ChatSystem");
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent evt) {
 				formWindowClosing(evt);

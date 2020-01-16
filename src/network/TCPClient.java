@@ -68,7 +68,7 @@ public class TCPClient /*extends JFrame*/ implements Runnable {
 				/* Request a connection to the given User  */
 				System.out.println("connecting to port " + port + " and host " + host);
 				chatSocket = new Socket(host, User.portTCP);
-				/* Initialization the outputput channel */
+				/* Initialization the output channel */
 				this.output = new PrintWriter(chatSocket.getOutputStream());
 
 				/* Send the message...*/

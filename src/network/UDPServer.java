@@ -35,10 +35,9 @@ public class UDPServer implements Runnable {
 			while (running) {
 				this.dgramSocket.receive(this.inPacket);
                 String msg = new String(inPacket.getData(), 0, inPacket.getLength());
-                String[] seg = msg.split(":");
+                String seg[] = msg.split(":");
                 String pseudo = seg[0];
-                //int port = Integer.parseInt(seg[1]);
-                String port = seg[1];
+                int port = Integer.parseInt(seg[1]);
                 msg = seg[2];
                 String host = inPacket.getAddress().getHostAddress();
                 
@@ -53,7 +52,7 @@ public class UDPServer implements Runnable {
                 if (msg.equals("disconnect") && !host.equals(inter.getUser().getHost())) {
                     System.out.println("[disconnect] " + host + " sends a " + msg);
                     User usr = new User(pseudo, host);
-                    usr.setActive(true);
+                    usr.setActive(false);
                     this.inter.updateOnlineList(usr);
                     this.inter.updateHome();
                 }

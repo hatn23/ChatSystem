@@ -133,6 +133,7 @@ public class LoginForm extends javax.swing.JFrame {
         jLabelHost.setForeground(new java.awt.Color(236, 240, 241));
         jLabelHost.setText("Host :");
 
+        jTextFieldHost.setEditable(false);
         jTextFieldHost.setBackground(new java.awt.Color(108, 122, 137));
         jTextFieldHost.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldHost.setForeground(new java.awt.Color(228, 241, 254));

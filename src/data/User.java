@@ -82,5 +82,8 @@ public class User {
 		this.newMessage = newMsg;
 		
 	}
-	
+	@Override
+    public String toString() {
+        return this.pseudonyme + " (" + this.host + " : " + this.port + ")";
+    }
 }

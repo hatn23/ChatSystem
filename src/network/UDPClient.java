@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 public class UDPClient implements Runnable {
 	private DatagramSocket dgramSocket;
 	private final DatagramPacket outPacket;
-	@SuppressWarnings("unused")
 	private final String message;
 
 	public UDPClient (String host, int port, String message) throws UnknownHostException {
@@ -22,7 +21,7 @@ public class UDPClient implements Runnable {
 
 	public UDPClient (Interface inter, String message) throws UnknownHostException {
 		this.message = inter.getUser().getPseudo() + ":" + inter.getUser().getPort()+":"+ message;
-		outPacket = new DatagramPacket(message.getBytes(), message.length());
+		outPacket = new DatagramPacket(this.message.getBytes(), this.message.length());
 		outPacket.setAddress(InetAddress.getByName("255.255.255.255"));
 		outPacket.setPort(User.portUDP);
 	}
