@@ -1,6 +1,5 @@
 import data.*;
-import network.*;
-import views.*;
+import UI.*;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.InterfaceAddress;
@@ -13,7 +12,7 @@ public class ChatSystem {
 	        String ip = getLocalAddress().getHostAddress();
 	        Interface inter = new Interface(new User(ip));
 
-	        Login loginWindow = new Login(inter);
+	        LoginForm loginWindow = new LoginForm(inter);
 	        loginWindow.display();
 	    }
 

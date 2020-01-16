@@ -1,21 +1,21 @@
 package data;
 import java.net.*;
 import java.util.*;
-import views.*;
+
+import UI.*;
 
 public class Interface {
 	private User user;
 	private ArrayList<User> onlineList; 
-	private Message message;
+	private String message = "";
 	private Home home;
-	private final HashMap<String, ChatWindow> chatWindowForUser;//String -> ipAddress
+	private final HashMap<String, ChatWindow> chatWindowForUser;
 
 	/* Constructors*/
 
 	public Interface(User user) {
 		this.user = user;
 		this.onlineList = new ArrayList();
-		this.message = null;
 		this.home = new Home(this);
 		this.chatWindowForUser = new HashMap<>();
 
@@ -25,15 +25,23 @@ public class Interface {
 	public User getUser() {
 		return this.user;
 	}
+	public String userName(){
+		return this.user.getPseudo();
+	}
 	public ArrayList<User> getOnlineList(){
 		return this.onlineList;
 	}
 	public String getMessage() {
-		return this.message.getMessage();
+		return this.message;
 	}
 	public void setMessage(String msg) {
-		this.message.setMessage(msg);
+		this.message = msg;
 	}
+	
+	public void update(User newUser) {
+        this.user = newUser;
+    }
+	
 
 	public void addOnlineUser (User newUser) {
 		this.onlineList.add(newUser);
@@ -57,24 +65,30 @@ public class Interface {
 
 		for (User userInList : onlineList) {
 			if (userInList.getHost().equals(u.getHost())) {
-				System.out.println("[user] This user is already on the list!");
+				System.out.println("[user] This user is already on the list");
 				if (userInList.getPseudo().equals(u.getPseudo())) {
 				} else {
 					System.out.println(" Name change " + userInList.getPseudo() + " > " + u.getPseudo());
 					userInList.setPseudo(u.getPseudo());
-					this.message.setMessage(" Name change " + userInList.getPseudo() + " > " + u.getPseudo());
+					this.message = " Name change " + userInList.getPseudo() + " > " + u.getPseudo();
 				}
 				if (u.isActive() == true) {
-					System.out.println(" Status : connected ");
+					System.out.println(" Status:connected ");
 					userInList.setActive(true);
 				} else {
-					System.out.println(" Status : disconnected ");
+					System.out.println(" Status:disconnected ");
 					userInList.setActive(false);
+				}
+				if (u.getStatusNewMessage() == false) {
+					userInList.setNewMessage(false);
+				} else {
+					System.out.println(" New Message Status:new message ");
+					userInList.setNewMessage(true);
 				}
 				return;
 			}
 		}
-		System.out.println("[user] New User: UserIP>" + u.getHost() + " Pseudo>" + u.getPseudo());
+		System.out.println("[user] New User:UserIP>" + u.getHost() + " Pseudo>" + u.getPseudo());
 		this.addOnlineUser(u);
 
 	}
@@ -83,7 +97,20 @@ public class Interface {
 	}
 
 	public void updateHome() {
-		// TODO Auto-generated method stub
+		this.home.getOnlineList().removeAllElements();
+		for (User u : this.getOnlineList()) {
+			if (u.isActive() == true) {
+				if (u.getStatusNewMessage()) {
+					this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
+				} else {
+					this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
+				}
+				if (!this.existChatWindow(u)) { 
+					ChatWindow chatWindow = new ChatWindow(this, new Interface(u));
+					this.setChatWindowForUser(u, chatWindow);
+				}
+			}
+		}
 
 	}
 
@@ -118,11 +145,11 @@ public class Interface {
 		return res;
 	}
 
-	public void setChatWindowForPeer(User user, ChatWindow chatWindow) {
+	public void setChatWindowForUser(User user, ChatWindow chatWindow) {
 		this.chatWindowForUser.put(user.getHost(), chatWindow);
 	}
 
-	public ChatWindow getChatWindowForPeer(String ipAddress) {
+	public ChatWindow getChatWindowForUser(String ipAddress) {
 		return this.chatWindowForUser.get(ipAddress);
 	}
 
@@ -137,15 +164,26 @@ public class Interface {
 	}
 
 	public boolean checkPseudo() {
-		 Boolean res = true;
-	        for (User user : this.getOnlineList()) {
-	            System.out.println(user.getPseudo());
-	            if (this.getUser().getPseudo().equals(user.getPseudo())) {
-	                res = false;
-	            }
-	        }
-	        return res;
+		Boolean res = true;
+		for (User user : this.getOnlineList()) {
+			System.out.println(user.getPseudo());
+			if (this.getUser().getPseudo().equals(user.getPseudo())) {
+				res = false;
+			}
+		}
+		return res;
 	}
+	
+	@Override
+    public String toString() {
+        String str = "This peer is " + this.user.toString() + " and his friends list :\n";
+        for (User u : onlineList) {
+            str += "- " + u.toString() + "\n";
+        }
+        return str;
+    }
+	
+
 
 
 

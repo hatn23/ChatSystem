@@ -6,7 +6,9 @@ public class User {
 	private String pseudonyme;
 	private boolean active;
 	private int port;
-		
+
+	private boolean newMessage;
+	
 	public final static int portTCP = 1345;
 	public final static int portUDP = 1234;
 	
@@ -19,6 +21,7 @@ public class User {
 		this.host = host;
 		this.active = false;
 		this.port = portTCP;
+		this.newMessage = false;
 	}
 	
 	public User(String host, String Pseudo) throws UnknownHostException {
@@ -26,6 +29,7 @@ public class User {
 		this.host = host;
 		this.active = false;
 		this.port = portTCP;
+		this.newMessage = false;
 	}
 	
 	public User(String host,String Pseudo, int Port) throws UnknownHostException {
@@ -33,6 +37,15 @@ public class User {
 		this.host = host;
 		this.active = false;
 		this.port = Port;
+		this.newMessage = false;
+	}
+	
+	public User(String host,String Pseudo, Boolean newMessage) throws UnknownHostException {
+		this.pseudonyme = Pseudo;
+		this.host = host;
+		this.active = false;
+		this.port = portTCP;
+		this.newMessage = newMessage;
 	}
 	
 	/*Methods*/
@@ -63,5 +76,16 @@ public class User {
 	public void setPort(int Port) {
 		 this.port = Port;
 	}
-	
+	public Boolean getStatusNewMessage() {
+		return this.newMessage;
+	}
+
+	public void setNewMessage(boolean newMsg) {
+		this.newMessage = newMsg;
+		
+	}
+	@Override
+    public String toString() {
+        return this.pseudonyme + " (" + this.host + " : " + this.port + ")";
+    }
 }
