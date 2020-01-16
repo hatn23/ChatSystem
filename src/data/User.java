@@ -1,7 +1,8 @@
 package data;
+import java.io.Serializable;
 import java.net.*;
 
-public class User {
+public class User implements Serializable {
 	private String host;
 	private String pseudonyme;
 	private boolean active;
