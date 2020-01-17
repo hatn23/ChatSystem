@@ -5,17 +5,13 @@ import java.util.*;
 import data.User;
 
 public class Database {
-	static Properties props = new Properties();
-	private static String url = props.getProperty("jbdc.url");
-	//private static String login = props.getProperty("jbdc.login");
-	//private static String password = props.getProperty("jbdc.password");
 	
 	public static void Driver() throws ClassNotFoundException{
-		Class.forName(props.getProperty("jbdc.driver.class"));
+		Class.forName("org.sqlite.JDBC");
 	}
 	
 	public static Connection establish_Connection() throws SQLException {
-		Connection conn = DriverManager.getConnection(url);
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:ChatSystem.db");
 		return conn;
 	}
 	

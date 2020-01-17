@@ -79,10 +79,9 @@ public class History {
 	}
 	
 	//Get the time of the message
-	public static String get_Time(Message msg) throws SQLException {
+	public static String get_Time(String Text) throws SQLException {
 		Connection conn = null;
 		String Time=null;
-		String Text = msg.getMessage().toString();
 		try {
 			conn=Database.establish_Connection();
 			String sql = "SELECT Time FROM Message" + 
@@ -97,6 +96,11 @@ public class History {
 				conn.close();
 		}
 		return Time;
+	}
+	
+	//An history does exist between 2 users
+	public static Boolean History_exist(User user1, User user2) throws SQLException {
+		return !(get_History(user1,user2).isEmpty());
 	}
 	
 }
