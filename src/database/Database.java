@@ -26,10 +26,9 @@ public class Database {
 			conn = establish_Connection();
 			Statement stmt = conn.createStatement();
 			String sql = "CREATE TABLE IF NOT EXISTS User" + 
-					"    (id_utilisateur VARCHAR(4) PRIMARY KEY AUTO_INCREMENT," + 
+					"    (id_utilisateur INTEGER PRIMARY KEY AUTOINCREMENT," + 
 					"    Username VARCHAR(20)," + 
 					"    IP_address VARCHAR(15));"; 
-			
 			stmt.executeUpdate(sql);
 			stmt.close();
 		}finally {
