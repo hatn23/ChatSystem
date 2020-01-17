@@ -119,10 +119,9 @@ public class Database {
 	}
 
 	//Get the User name of a known user
-	public static String get_Username(User user) throws SQLException {
+	public static String get_Username(String IP) throws SQLException {
 		Connection conn = null;
 		String Pseudo=null;
-		String IP = user.getHost();
 		try {
 			conn=establish_Connection();
 			String sql = "SELECT Username FROM User" + 
@@ -138,7 +137,6 @@ public class Database {
 		}
 		return Pseudo;
 	}
-	
 	//Get the IP address of a known user
 	public static String get_IPaddress(User user) throws SQLException {
 		Connection conn = null;

@@ -108,6 +108,46 @@ public class History {
 		return Time;
 	}
 	
+	//Get the Receiver of the message
+	public static String get_Receiver(String Text) throws SQLException {
+		Connection conn = null;
+		String Time=null;
+		try {
+			conn=Database.establish_Connection();
+			String sql = "SELECT Receiver_IP FROM Message" + 
+					     " WHERE Text = '" + Text + "';";
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			Time = rs.getString("Receiver_IP");
+			rs.close();
+			st.close();
+		} finally {
+			if (conn!= null)
+				conn.close();
+		}
+		return Time;
+	}
+	
+	//Get the Sender of the message
+	public static String get_Sender(String Text) throws SQLException {
+		Connection conn = null;
+		String Time=null;
+		try {
+			conn=Database.establish_Connection();
+			String sql = "SELECT Sender_IP FROM Message" + 
+					     " WHERE Text = '" + Text + "';";
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			Time = rs.getString("Sender_IP");
+			rs.close();
+			st.close();
+		} finally {
+			if (conn!= null)
+				conn.close();
+		}
+		return Time;
+	}
+	
 	//An history does exist between 2 users
 	public static Boolean History_exist(User user1, User user2) throws SQLException {
 		return !(get_History(user1,user2).isEmpty());
