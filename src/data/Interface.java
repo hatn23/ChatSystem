@@ -1,6 +1,8 @@
 package data;
 import java.net.*;
+import java.sql.SQLException;
 import java.util.*;
+import database.Database;
 
 import UI.*;
 
@@ -164,14 +166,23 @@ public class Interface {
 	}
 
 	public boolean checkPseudo() {
-		Boolean res = true;
+		/*Boolean res = true;
 		for (User user : this.getOnlineList()) {
 			System.out.println(user.getPseudo());
 			if (this.getUser().getPseudo().equals(user.getPseudo())) {
 				res = false;
 			}
 		}
+		return res;*/
+		boolean res = true;
+		try {
+			res = Database.is_Unique(this.user.getPseudo());
+		}
+		catch(SQLException ex) {
+			ex.printStackTrace();
+		}
 		return res;
+		
 	}
 	
 	@Override

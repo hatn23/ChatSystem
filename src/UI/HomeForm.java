@@ -6,12 +6,25 @@
 package UI;
 
 import javax.swing.JFrame;
+import network.*;
+import data.*;
+import java.net.UnknownHostException;
+import javax.swing.WindowConstants;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 
 /**
  *
  * @author nhtran
  */
 public class HomeForm extends javax.swing.JFrame {
+    
+    private Interface inter;
+	static Thread listenTCP = null;
+	static TCPServer runnableTCP = null;
+	//public static History history;
 
     /**
      * Creates new form HomeForm
@@ -33,14 +46,16 @@ public class HomeForm extends javax.swing.JFrame {
         jLabelClose = new javax.swing.JLabel();
         jLabelHome = new javax.swing.JLabel();
         jLabelMin = new javax.swing.JLabel();
+        jLabelRename = new javax.swing.JLabel();
+        jLabelLogout = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPaneNoti = new javax.swing.JScrollPane();
+        jScrollPaneOnlineList = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(235, 151, 78));
+        jPanel1.setBackground(new java.awt.Color(226, 106, 106));
 
         jLabelClose.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabelClose.setForeground(new java.awt.Color(255, 255, 255));
@@ -51,7 +66,7 @@ public class HomeForm extends javax.swing.JFrame {
             }
         });
 
-        jLabelHome.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabelHome.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabelHome.setForeground(new java.awt.Color(255, 255, 255));
         jLabelHome.setText("Home");
 
@@ -64,56 +79,82 @@ public class HomeForm extends javax.swing.JFrame {
             }
         });
 
+        jLabelRename.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelRename.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelRename.setText("Rename");
+        jLabelRename.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelRenameMouseClicked(evt);
+            }
+        });
+
+        jLabelLogout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelLogout.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLogout.setText("Log Out");
+        jLabelLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLogoutMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabelHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelMin)
                 .addGap(18, 18, 18)
-                .addComponent(jLabelClose)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelHome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelMin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelClose)
+                        .addGap(12, 12, 12))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelRename)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelLogout)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabelClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelMin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addComponent(jLabelHome)
-                .addComponent(jLabelMin, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelRename)
+                    .addComponent(jLabelLogout))
+                .addGap(6, 6, 6))
         );
 
         jPanel2.setBackground(new java.awt.Color(52, 73, 94));
-
-        jScrollPane1.setBackground(new java.awt.Color(242, 120, 75));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneOnlineList, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
+                .addComponent(jScrollPaneNoti, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 315, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPaneNoti, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+            .addComponent(jScrollPaneOnlineList)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,48 +175,47 @@ public class HomeForm extends javax.swing.JFrame {
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jLabelMinMouseClicked
 
+    private void jLabelRenameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelRenameMouseClicked
+        ChangePseudo changePseudoWindow = new ChangePseudo(this.inter, this);
+	changePseudoWindow.display();
+    }//GEN-LAST:event_jLabelRenameMouseClicked
+
+    private void jLabelLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLogoutMouseClicked
+        try {
+			new UDPClientThread().sendDisconnect(this.inter);
+		}
+		catch(UnknownHostException ex){
+			Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		// Close Home Window and back to Login Window
+		this.inter.closeAllChatWindow();
+		this.setVisible(false);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.dispose();
+		LoginForm loginWindow = new LoginForm(inter);
+		loginWindow.setTitle("You are disconnected");
+		loginWindow.display();
+    }//GEN-LAST:event_jLabelLogoutMouseClicked
+
+   public void display() {
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+	}
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomeForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HomeForm().setVisible(true);
-            }
-        });
-    }
-
+   
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelClose;
     private javax.swing.JLabel jLabelHome;
+    private javax.swing.JLabel jLabelLogout;
     private javax.swing.JLabel jLabelMin;
+    private javax.swing.JLabel jLabelRename;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPaneNoti;
+    private javax.swing.JScrollPane jScrollPaneOnlineList;
     // End of variables declaration//GEN-END:variables
 }
