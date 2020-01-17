@@ -12,6 +12,8 @@ import data.User;
 	
 public class History {
 	
+	 private static History instance = null;
+	
 	//Create message Table
 	public static void Create_message_Table() throws SQLException {
 		Connection conn=null;
@@ -32,6 +34,14 @@ public class History {
 				conn.close();
 		}
 	}
+	
+	//Méthode qui va nous retourner notre instance et la créer si elle n'existe pas
+	   public static History getInstance(){
+	    if( instance == null){
+	      instance = new History();
+	    }
+	    return instance;   
+	  }   
 		
 	//Insert a new Message
 	public static void Insert_new_Message (Message msg) throws SQLException {
