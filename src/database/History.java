@@ -78,4 +78,25 @@ public class History {
 		return results;
 	}
 	
+	//Get the time of the message
+	public static String get_Time(Message msg) throws SQLException {
+		Connection conn = null;
+		String Time=null;
+		String Text = msg.getMessage().toString();
+		try {
+			conn=Database.establish_Connection();
+			String sql = "SELECT Time FROM Message" + 
+					     " WHERE Text = '" + Text + "';";
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			Time = rs.getString("Time");
+			rs.close();
+			st.close();
+		} finally {
+			if (conn!= null)
+				conn.close();
+		}
+		return Time;
+	}
+	
 }
