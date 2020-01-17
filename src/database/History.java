@@ -13,7 +13,7 @@ import data.User;
 public class History {
 	
 	//Create message Table
-	public static void Create_message_Table (Message message) throws SQLException {
+	public static void Create_message_Table() throws SQLException {
 		Connection conn=null;
 		try {
 			conn = Database.establish_Connection();
@@ -22,9 +22,10 @@ public class History {
 					"	(Sender_IP VARCHAR(15)," + 
 					"	Receiver_IP VARCHAR(15)," + 
 					"	Text TEXT," + 
-					"	Time DATETIME);" ; 
+					"	Time DATETIME NOT NULL DEFAULT (datetime(CURRENT_TIMESTAMP, 'localtime')));" ; 
 			
 			stmt.executeUpdate(sql);
+
 			stmt.close();
 		}finally {
 			if (conn!= null) 
@@ -37,9 +38,9 @@ public class History {
 		Connection conn = null;
 		try {
 			conn=Database.establish_Connection();
-			String sql = ("INSERT into Message (Sender_IP , Receiver_IP, Text, Time) ") 
-					+ (" VALUES (" + msg.getSender() + "," + msg.getReceiver() 
-					+ msg.getMessage() + "," + "msg.getDate()" +");");
+			String sql = ("INSERT into Message (Sender_IP , Receiver_IP, Text) ") 
+					+ (" VALUES ('" + msg.getSenderHost() + "','" + msg.getReceiverHost() +"','" 
+					+ msg.getMessage().toString() + "');");
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 		
@@ -59,14 +60,14 @@ public class History {
 		ArrayList<String> results= new ArrayList<String>();
 		try {
 			conn = Database.establish_Connection();
-			String sql = "SELECT Text " + "FROM Message "
-					+ "WHERE (Sender_IP = " + IP1 + " AND Receiver_IP = " + IP2 + ")" 
-					+"OR (Sender_IP = " + IP2 + " AND Receiver_IP = " + IP1 +" ) "
+			String sql = "SELECT * " + " FROM Message "
+					+ "where (Sender_IP = '" + IP1 + "' AND Receiver_IP = '" + IP2 + "')" 
+					+"OR (Sender_IP = '" + IP2 + "' AND Receiver_IP = '" + IP1 +"' ); "
 							+ "ORDER BY Time DESC;";
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			while(rs.next()) {
-				results.add(rs.getString("IP_address"));
+				results.add(rs.getString("Text"));
 			} 
 		}finally {
 			if (conn!= null)
