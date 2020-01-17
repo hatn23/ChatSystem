@@ -41,11 +41,11 @@ public class Database {
 	//Verify the user name is unique
 	public static boolean is_Unique (String pseudo) throws SQLException {
 		ArrayList<String> pseudos = get_All_Usernames();
-		return pseudos.contains(pseudo);
+		return !(pseudos.contains(pseudo));
 	}
 	
 	//Update a user name
-	public static void Update_Username(User user_update) throws SQLException {
+	public static void Update_Username(User user_update) throws SQLException{
 		Connection conn = null;
 		String IP = user_update.getHost();
 		String new_pseudo= user_update.getPseudo();
@@ -53,8 +53,8 @@ public class Database {
 			conn = establish_Connection();
 			Statement stmt = conn.createStatement();
 			String sql = "UPDATE User" +
-						 "set Username = " + new_pseudo +
-						 "WHERE IP_address =" + IP + ");" ;
+						 " set Username = '" + new_pseudo +
+						 "' where IP_address = '" + IP + "';" ;
 			stmt.executeUpdate(sql);
 			
 		}finally {
@@ -69,11 +69,13 @@ public class Database {
 		Connection conn = null;
 		try {
 			conn=establish_Connection();
-			String sql = ("INSERT into User (Username , IP_address) ") + (" VALUES (" + user.getPseudo() + ","
-					+ user.getHost() +");");
+			String pseudo = user.getPseudo();
+			String IP = user.getHost();
+
+			String sql = "INSERT INTO User (Username , IP_address) " + " VALUES ( '" + pseudo + "','" + IP + "');";
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
-		
+
 			stmt.close();
 		} finally {
 			if (conn !=null)
@@ -88,7 +90,7 @@ public class Database {
 		try {
 			conn = establish_Connection();
 			Statement st = conn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT Username" + "FROM User;");
+			ResultSet rs = st.executeQuery("SELECT DISTINCT Username" + " FROM User;");
 			while(rs.next()) {
 				results.add(rs.getString("Username"));
 			} 
@@ -106,7 +108,7 @@ public class Database {
 		ArrayList<String> results= new ArrayList<String>();
 		try {
 			conn = establish_Connection();
-			String sql = "SELECT IP_address" + "FROM User;";
+			String sql = "SELECT DISTINCT IP_address" + " FROM User;";
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			while(rs.next()) {
@@ -129,10 +131,10 @@ public class Database {
 		try {
 			conn=establish_Connection();
 			String sql = "SELECT Username FROM User" + 
-					   "WHERE IP_address = " + IP + ";";
+					   " WHERE IP_address = '" + IP + "';";
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
-			Pseudo = rs.getString(rs.getRow());
+			Pseudo = rs.getString("Username");
 			rs.close();
 			st.close();
 		} finally {
@@ -150,10 +152,10 @@ public class Database {
 		try {
 			conn=establish_Connection();
 			String sql = "SELECT IP_address FROM User" + 
-					     "WHERE Username = " + Username + ";";
+					     " WHERE Username = '" + Username + "';";
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
-			IP = rs.getString(rs.getRow());
+			IP = rs.getString("IP_address");
 			rs.close();
 			st.close();
 		} finally {
