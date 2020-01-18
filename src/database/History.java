@@ -1,11 +1,14 @@
 package database;
 
+import java.io.Serializable;
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import data.Message;
@@ -44,9 +47,19 @@ public class History {
 	    }
 	    return instance;   
 	  }   
+	   
+	 private Connection connect() {
+		 Connection c = null;
+	        try {
+	            c = Database.establish_Connection();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return c;
+	 }
 		
 	//Insert a new Message
-	public static void Insert_new_Message (Message msg) throws SQLException {
+	public void Insert_new_Message (Message msg) throws SQLException {
 		Connection conn = null;
 		try {
 			conn=Database.establish_Connection();
@@ -177,6 +190,9 @@ public class History {
 
 	        return false;
 	    }
+	 
+	 
+	 
 	 
 	 
 	

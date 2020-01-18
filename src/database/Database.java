@@ -6,8 +6,27 @@ import data.User;
 
 public class Database {
 	
-	public static void Driver() throws ClassNotFoundException{
-		Class.forName("org.sqlite.JDBC");
+	private static Database instance = null;
+	
+	private Database() {
+			Driver();
+			Create_User_Table();
+	}
+	
+	public static Database get_Instance() {
+		if (instance == null) {
+			instance = new Database();
+		}
+		return instance;
+	}
+	
+	public static void Driver(){
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public static Connection establish_Connection() throws SQLException {
@@ -15,21 +34,35 @@ public class Database {
 		return conn;
 	}
 	
+	
+	
 	//Create User Table
-	public static void Create_User_Table() throws SQLException {
+	public static void Create_User_Table() {
 		Connection conn=null;
+		String sql = "CREATE TABLE IF NOT EXISTS User" + 
+				"    (id_utilisateur INTEGER PRIMARY KEY AUTOINCREMENT," + 
+				"    Username VARCHAR(20)," + 
+				"    IP_address VARCHAR(15));"; 
 		try {
-			conn = establish_Connection();
-			Statement stmt = conn.createStatement();
-			String sql = "CREATE TABLE IF NOT EXISTS User" + 
-					"    (id_utilisateur INTEGER PRIMARY KEY AUTOINCREMENT," + 
-					"    Username VARCHAR(20)," + 
-					"    IP_address VARCHAR(15));"; 
-			stmt.executeUpdate(sql);
-			stmt.close();
+			try {
+				conn = establish_Connection();
+				Statement stmt = conn.createStatement();
+				
+				stmt.executeUpdate(sql);
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}finally {
-			if (conn!= null) 
-				conn.close();
+			if (conn!= null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
 	}
 	

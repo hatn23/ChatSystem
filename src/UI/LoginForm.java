@@ -18,7 +18,9 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import data.*;
+import database.Database;
 import database.History;
+import java.sql.SQLException;
 import network.*;
 
 
@@ -68,7 +70,6 @@ public class LoginForm extends javax.swing.JFrame {
         jLabelPseudo = new javax.swing.JLabel();
         jLabelHost = new javax.swing.JLabel();
         jTextFieldHost = new javax.swing.JTextField();
-        jButtonCancel = new javax.swing.JButton();
         jButtonLogin = new javax.swing.JButton();
         jLabelWarning = new javax.swing.JLabel();
         jTextFieldPseudo = new javax.swing.JTextField();
@@ -76,7 +77,7 @@ public class LoginForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(211, 84, 0));
+        jPanel1.setBackground(new java.awt.Color(226, 106, 106));
 
         jLabelLogin.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabelLogin.setForeground(new java.awt.Color(255, 255, 255));
@@ -140,17 +141,6 @@ public class LoginForm extends javax.swing.JFrame {
         jTextFieldHost.setForeground(new java.awt.Color(228, 241, 254));
         jTextFieldHost.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
-        jButtonCancel.setBackground(new java.awt.Color(255, 102, 102));
-        jButtonCancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButtonCancel.setForeground(new java.awt.Color(0, 0, 0));
-        jButtonCancel.setText("Cancel");
-        jButtonCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelActionPerformed(evt);
-            }
-        });
-
         jButtonLogin.setBackground(new java.awt.Color(52, 152, 219));
         jButtonLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonLogin.setForeground(new java.awt.Color(0, 0, 0));
@@ -181,6 +171,7 @@ public class LoginForm extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelWarning, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -188,14 +179,13 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(jLabelHost))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextFieldHost, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextFieldHost, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                     .addComponent(jTextFieldPseudo))
-                .addContainerGap(21, Short.MAX_VALUE))
-            .addComponent(jLabelWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(149, 149, 149))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,11 +200,9 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelHost)
                     .addComponent(jTextFieldHost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -236,6 +224,11 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     protected void jLabelCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCloseMouseClicked
+         try {
+            new UDPClientThread().sendDisconnect(inter);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.exit(0);
     }//GEN-LAST:event_jLabelCloseMouseClicked
 
@@ -243,15 +236,10 @@ public class LoginForm extends javax.swing.JFrame {
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jLabelMinMouseClicked
 
-    protected void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCancelActionPerformed
-
     protected void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
     	if (this.jTextFieldPseudo.getText().equals("")) {
             this.jLabelWarning.setText("User nickname cannot be empty.");
         } else {
-            /* Check the password if it is valid*/
             try {
                 this.jLabelWarning.setText("Connecting... Please Wait");
                 /* Create a node with the nickname and the host address */
@@ -282,6 +270,11 @@ public class LoginForm extends javax.swing.JFrame {
                 /* Open homepage if the nickname is unique*/
                 sleep(10);
                 if (this.inter.checkPseudo()) {
+                    try {
+                        Database.Insert_new_User(this.inter.getUser());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     new UDPClientThread().sendBroadcast(this.inter);
                     this.inter.getHome().display();
                     this.setVisible(false);
@@ -337,6 +330,11 @@ public class LoginForm extends javax.swing.JFrame {
                     /* Open home if the nickname is unique*/
                     sleep(10);
                     if (this.inter.checkPseudo()) {
+                        try {
+                        Database.Insert_new_User(this.inter.getUser());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                         new UDPClientThread().sendBroadcast(this.inter);
                         this.inter.getHome().display();
                         this.setVisible(false);
@@ -366,18 +364,12 @@ public class LoginForm extends javax.swing.JFrame {
 		jLabelWarning.setText(title);
 	}
 	
-	private void closeWindow (WindowEvent evt) {
-        try {
-            new UDPClientThread().sendDisconnect(inter);
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+	
+
     
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonLogin;
     private javax.swing.JLabel jLabelClose;
     private javax.swing.JLabel jLabelHost;

@@ -10,7 +10,7 @@ public class Interface {
 	private User user;
 	private ArrayList<User> onlineList; 
 	private String message = "";
-	private Home home;
+	private HomeForm home;
 	private final HashMap<String, ChatWindow> chatWindowForUser;
 	private static final History history = null;
 
@@ -19,7 +19,7 @@ public class Interface {
 	public Interface(User user) {
 		this.user = user;
 		this.onlineList = new ArrayList();
-		this.home = new Home(this,History.getInstance());
+		this.home = new HomeForm(this,History.getInstance());
 		this.chatWindowForUser = new HashMap<>();
 
 	}
@@ -99,7 +99,7 @@ public class Interface {
 		this.addOnlineUser(u);
 
 	} 
-	public Home getHome() {
+	public HomeForm getHome() {
 		return this.home;
 	}
 

@@ -10,7 +10,7 @@ import java.util.Enumeration;
 
 public class ChatSystem {
 	public static void main(String[] args) throws Exception {
-		Database.Driver();
+		Database.get_Instance();
 		String ip = getLocalAddress().getHostAddress();
 		Interface inter = new Interface(new User(ip));
 
