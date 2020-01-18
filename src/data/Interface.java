@@ -2,7 +2,7 @@ package data;
 import java.net.*;
 import java.sql.SQLException;
 import java.util.*;
-import database.Database;
+import database.*;
 
 import UI.*;
 
@@ -12,18 +12,23 @@ public class Interface {
 	private String message = "";
 	private Home home;
 	private final HashMap<String, ChatWindow> chatWindowForUser;
+	private static final History history = null;
 
 	/* Constructors*/
 
 	public Interface(User user) {
 		this.user = user;
 		this.onlineList = new ArrayList();
-		this.home = new Home(this);
+		this.home = new Home(this,History.getInstance());
 		this.chatWindowForUser = new HashMap<>();
 
 	}
 
 	/*Methods*/
+	public History getHistory() {
+		return this.history;
+	}
+	
 	public User getUser() {
 		return this.user;
 	}
@@ -93,12 +98,12 @@ public class Interface {
 		System.out.println("[user] New User:UserIP>" + u.getHost() + " Pseudo>" + u.getPseudo());
 		this.addOnlineUser(u);
 
-	}
+	} 
 	public Home getHome() {
 		return this.home;
 	}
 
-	public void updateHome() {
+	public void updateHome() throws SQLException {
 		this.home.getOnlineList().removeAllElements();
 		for (User u : this.getOnlineList()) {
 			if (u.isActive() == true) {
@@ -108,6 +113,13 @@ public class Interface {
 					this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
 				}
 				if (!this.existChatWindow(u)) { 
+					Message msg = new Message(this.getUser(),u);
+					if (History.getInstance().existHistory(msg)) {
+						  //msg = History.getInstance().get_History(this.getUser(), u);
+					}
+					else {
+						History.getInstance().Insert_new_Message(msg);
+					}
 					ChatWindow chatWindow = new ChatWindow(this, new Interface(u));
 					this.setChatWindowForUser(u, chatWindow);
 				}

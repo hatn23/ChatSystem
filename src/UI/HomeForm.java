@@ -8,6 +8,7 @@ package UI;
 import javax.swing.JFrame;
 import network.*;
 import data.*;
+import database.*;
 import java.net.UnknownHostException;
 import javax.swing.WindowConstants;
 import java.util.logging.Level;
@@ -24,12 +25,13 @@ public class HomeForm extends javax.swing.JFrame {
     private Interface inter;
 	static Thread listenTCP = null;
 	static TCPServer runnableTCP = null;
-	//public static History history;
+	public static History history;
 
     /**
      * Creates new form HomeForm
      */
     public HomeForm() {
+    	
         initComponents();
     }
 

@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import data.*;
+import database.History;
 import network.*;
 
 
@@ -262,7 +263,7 @@ public class LoginForm extends javax.swing.JFrame {
                     runnableTCP.terminate();
                     listenTCP.join();
                 }
-                runnableTCP = new TCPServer(this.inter);
+                runnableTCP = new TCPServer(this.inter,History.getInstance());
                 listenTCP = new Thread(runnableTCP);
                 listenTCP.start();
 
@@ -317,7 +318,7 @@ public class LoginForm extends javax.swing.JFrame {
                         runnableTCP.terminate();
                         listenTCP.join();
                     }
-                    runnableTCP = new TCPServer(this.inter);
+                    runnableTCP = new TCPServer(this.inter, History.getInstance());
                     listenTCP = new Thread(runnableTCP);
                     listenTCP.start();
 

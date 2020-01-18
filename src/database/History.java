@@ -1,10 +1,12 @@
 package database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import data.Message;
 import data.User;
@@ -152,5 +154,30 @@ public class History {
 	public static Boolean History_exist(User user1, User user2) throws SQLException {
 		return !(get_History(user1,user2).isEmpty());
 	}
+	
+	 public boolean existHistory(Message msg) {
+	        String sql = "SELECT ROWID FROM history WHERE hostsource = ? AND hostdest = ?";
+
+	        Object result = null;
+	        try (Connection conn = Database.establish_Connection();
+	                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	            // set the value
+	            pstmt.setString(1, msg.getSenderHost());
+	            pstmt.setString(2, msg.getReceiverHost());
+	            //
+	            ResultSet rs = pstmt.executeQuery();
+	            if (rs.next()) {
+	                return true;
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            System.out.println(e.getMessage());
+	        }
+
+	        return false;
+	    }
+	 
+	 
 	
 }

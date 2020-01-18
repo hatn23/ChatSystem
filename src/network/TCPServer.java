@@ -1,5 +1,6 @@
 package network;
 import java.net.*;
+import java.sql.SQLException;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +15,7 @@ import java.io.*;
 import data.Interface;
 //import data.Message;
 import data.User;
+import database.History;
 
 public class TCPServer implements Runnable {
 
@@ -21,11 +23,11 @@ public class TCPServer implements Runnable {
 	private Socket chatSocket;
 	private Interface inter;
 	private boolean running = true;
-	//private History history
+	private static History history;
 
-	public TCPServer (Interface inter /*,History history*/) throws IOException {	
+	public TCPServer (Interface inter ,History history) throws IOException {	
 		this.inter = inter;
-		//this.history = history;
+		TCPServer.history = History.getInstance();
 		this.serverSocket = new ServerSocket(User.portTCP);
 		this.inter.getUser().setPort(this.serverSocket.getLocalPort());
 	}
@@ -137,7 +139,7 @@ public class TCPServer implements Runnable {
 				//chatSocket.close();
 			}
 		}
-		catch (IOException e) {
+		catch (IOException | SQLException e) {
             e.printStackTrace();
         }
 	}

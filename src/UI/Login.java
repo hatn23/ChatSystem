@@ -8,6 +8,7 @@ import javax.swing.*;
 import static java.lang.Thread.sleep;
 
 import data.*;
+import database.History;
 import network.*;
 
 @SuppressWarnings("serial")
@@ -128,7 +129,7 @@ public class Login extends JFrame {
                         runnableTCP.terminate();
                         listenTCP.join();
                     }
-                    runnableTCP = new TCPServer(this.inter);
+                    runnableTCP = new TCPServer(this.inter, History.getInstance());
                     listenTCP = new Thread(runnableTCP);
                     listenTCP.start();
 
@@ -184,7 +185,7 @@ public class Login extends JFrame {
                     runnableTCP.terminate();
                     listenTCP.join();
                 }
-                runnableTCP = new TCPServer(this.inter);
+                runnableTCP = new TCPServer(this.inter,History.getInstance());
                 listenTCP = new Thread(runnableTCP);
                 listenTCP.start();
 

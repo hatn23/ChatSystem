@@ -8,12 +8,14 @@ import javax.swing.*;
 
 import network.*;
 import data.*;
+import database.*;
 import javax.swing.DefaultListModel;
 import javax.swing.WindowConstants;
 import javax.swing.text.BadLocationException;
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.sql.SQLException;
 
 @SuppressWarnings("serial")
 public class Home extends javax.swing.JFrame  {
@@ -22,10 +24,12 @@ public class Home extends javax.swing.JFrame  {
 	DefaultListModel<String>  onlineListModel;
 	static Thread listenTCP = null;
 	static TCPServer runnableTCP = null;
-	//public static History history;
+	public static History history;
 
-	public Home(Interface inter/*,History history*/) {
+	@SuppressWarnings("static-access")
+	public Home(Interface inter,History history) {
 		this.inter = inter;
+		this.history = history.getInstance();
 		this.onlineListModel = new DefaultListModel<>();
 		for(User u : inter.getOnlineList()){
 			onlineListModel.addElement(u.getPseudo()+ ":"+ u.getHost()+":"+u.getPort());
@@ -61,7 +65,12 @@ public class Home extends javax.swing.JFrame  {
 		onlineList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		onlineList.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				onlineListMouseClicked(evt);
+				try {
+					onlineListMouseClicked(evt);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -141,7 +150,7 @@ public class Home extends javax.swing.JFrame  {
 
 	}
 
-	private void onlineListMouseClicked(MouseEvent evt) {
+	private void onlineListMouseClicked(MouseEvent evt) throws SQLException {
 		if (!onlineList.isSelectionEmpty()) {
             String friend = onlineList.getSelectedValue();
             String seg[] = friend.split(":");
