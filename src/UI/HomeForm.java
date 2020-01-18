@@ -258,7 +258,7 @@ public class HomeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelMinMouseClicked
 
     private void jLabelRenameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelRenameMouseClicked
-        ChangePseudo changePseudoWindow = new ChangePseudo(this.inter, this);
+        ChangePseudoForm changePseudoWindow = new ChangePseudoForm(this.inter, this);
 	changePseudoWindow.display();
     }//GEN-LAST:event_jLabelRenameMouseClicked
 
