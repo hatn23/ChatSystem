@@ -19,6 +19,8 @@ import javax.swing.WindowConstants;
 
 import data.*;
 import database.Database;
+import database.History;
+
 import java.sql.SQLException;
 import network.*;
 
@@ -35,6 +37,8 @@ public class LoginForm extends javax.swing.JFrame {
 	static Thread listenUDP = null;
 	static TCPServer runnableTCP = null;
 	static UDPServer runnableUDP = null;
+	private static final History history = null;
+	
 
 	/**
 	 * Creates new form LoginForm
@@ -260,7 +264,7 @@ public class LoginForm extends javax.swing.JFrame {
 					runnableTCP.terminate();
 					listenTCP.join();
 				}
-				runnableTCP = new TCPServer(this.inter);
+				runnableTCP = new TCPServer(this.inter, History.getInstance());
 				listenTCP = new Thread(runnableTCP);
 				listenTCP.start();
 
@@ -355,7 +359,7 @@ private void jTextFieldPseudoKeyPressed(java.awt.event.KeyEvent evt) throws SQLE
 					runnableTCP.terminate();
 					listenTCP.join();
 				}
-				runnableTCP = new TCPServer(this.inter);
+				runnableTCP = new TCPServer(this.inter,History.getInstance());
 				listenTCP = new Thread(runnableTCP);
 				listenTCP.start();
 
