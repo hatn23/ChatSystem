@@ -14,18 +14,11 @@ import network.UDPClientThread;
 
 @SuppressWarnings("serial")
 public class ChangePseudo extends javax.swing.JFrame {
-	
-	private Home homehome;
+
         private HomeForm home;
 	private Interface inter;
 	private Boolean confirm = false;
 	
-
-	public ChangePseudo(Interface inter, Home home) {
-		initWindow();
-		this.homehome = home;
-		this.inter = inter;
-	}
         
         public ChangePseudo(Interface inter, HomeForm home) {
 		initWindow();

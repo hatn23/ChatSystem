@@ -12,20 +12,20 @@ public class Interface {
 	private String message = "";
 	private HomeForm home;
 	private final HashMap<String, ChatWindow> chatWindowForUser;
-	private static final History history = null;
+	private static final Database history = null;
 
 	/* Constructors*/
 
 	public Interface(User user) {
 		this.user = user;
 		this.onlineList = new ArrayList();
-		this.home = new HomeForm(this,History.getInstance());
+		//this.home = new HomeForm(this,History.getInstance());
 		this.chatWindowForUser = new HashMap<>();
 
 	}
 
 	/*Methods*/
-	public History getHistory() {
+	public Database getHistory() {
 		return this.history;
 	}
 	
@@ -114,12 +114,12 @@ public class Interface {
 				}
 				if (!this.existChatWindow(u)) { 
 					Message msg = new Message(this.getUser(),u);
-					if (History.getInstance().existHistory(msg)) {
+					/*if (History.getInstance().existHistory(msg)) {
 						  //msg = History.getInstance().get_History(this.getUser(), u);
 					}
 					else {
 						History.getInstance().Insert_new_Message(msg);
-					}
+					}*/
 					ChatWindow chatWindow = new ChatWindow(this, new Interface(u));
 					this.setChatWindowForUser(u, chatWindow);
 				}

@@ -15,7 +15,7 @@ import java.io.*;
 import data.Interface;
 //import data.Message;
 import data.User;
-import database.History;
+import database.*;
 
 public class TCPServer implements Runnable {
 
@@ -23,11 +23,11 @@ public class TCPServer implements Runnable {
 	private Socket chatSocket;
 	private Interface inter;
 	private boolean running = true;
-	private static History history;
+	//private static History history;
 
-	public TCPServer (Interface inter ,History history) throws IOException {	
+	public TCPServer (Interface inter) throws IOException {	
 		this.inter = inter;
-		TCPServer.history = History.getInstance();
+		//TCPServer.history = History.getInstance();
 		this.serverSocket = new ServerSocket(User.portTCP);
 		this.inter.getUser().setPort(this.serverSocket.getLocalPort());
 	}

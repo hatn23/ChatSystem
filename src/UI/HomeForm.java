@@ -30,16 +30,16 @@ public class HomeForm extends javax.swing.JFrame {
     private Interface inter;
 	static Thread listenTCP = null;
 	static TCPServer runnableTCP = null;
-        public static History history;
+        //public static History history;
     DefaultListModel<String>  onlineListModel;
         
 
     /**
      * Creates new form HomeForm
      */
-    public HomeForm(Interface inter,History history) {
+    public HomeForm(Interface inter) {
     	this.inter = inter;
-	this.history = history.getInstance();
+	//this.history = history.getInstance();
 	this.onlineListModel = new DefaultListModel<>();
 	for(User u : inter.getOnlineList()){
 		onlineListModel.addElement(u.getPseudo()+ ":"+ u.getHost()+":"+u.getPort());
@@ -240,13 +240,13 @@ public class HomeForm extends javax.swing.JFrame {
         try {
             new UDPClientThread().sendDisconnect(inter);
         } catch (UnknownHostException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
 		this.inter.closeAllChatWindow();
 		this.setVisible(false);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		//this.dispose();
-		Login loginWindow = new Login(inter);
+		LoginForm loginWindow = new LoginForm(inter);
 		loginWindow.setTitle("You are disconnected");
 		loginWindow.display();
                 
@@ -267,7 +267,7 @@ public class HomeForm extends javax.swing.JFrame {
 			new UDPClientThread().sendDisconnect(this.inter);
 		}
 		catch(UnknownHostException ex){
-			Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(HomeForm.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		// Close Home Window and back to Login Window
 		this.inter.closeAllChatWindow();
@@ -304,7 +304,7 @@ public class HomeForm extends javax.swing.JFrame {
                 this.inter.getChatWindowForUser(client.getUser().getHost()).setTitle(client.getUser().getPseudo() + ": Chat");
                 this.inter.getChatWindowForUser(client.getUser().getHost()).display();
             } catch (IOException ex) {
-                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(HomeForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jListOnlineMouseClicked

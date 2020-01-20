@@ -13,7 +13,7 @@ public class ChatSystem {
 		Database.get_Instance();
 		String ip = getLocalAddress().getHostAddress();
 		Interface inter = new Interface(new User(ip));
-
+		System.out.println(Database.get_All_Usernames());
 		LoginForm loginWindow = new LoginForm(inter);
 		loginWindow.display();
 	}
