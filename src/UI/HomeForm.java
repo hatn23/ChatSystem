@@ -30,16 +30,16 @@ public class HomeForm extends javax.swing.JFrame {
     private Interface inter;
 	static Thread listenTCP = null;
 	static TCPServer runnableTCP = null;
-    public static History history;
+    //public static History history;
     DefaultListModel<String>  onlineListModel;
         
 
     /**
      * Creates new form HomeForm
      */
-    public HomeForm(Interface inter, History history) {
+    public HomeForm(Interface inter) {
     	this.inter = inter;
-	this.history = history.getInstance();
+	//this.history = history.getInstance();
 	this.onlineListModel = new DefaultListModel<>();
 	for(User u : inter.getOnlineList()){
 		onlineListModel.addElement(u.getPseudo()+ ":"+ u.getHost()+":"+u.getPort());

@@ -18,7 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import data.*;
 import database.Database;
-import database.History;
+//import database.History;
 import network.TCPClientThread;
 
 @SuppressWarnings("serial")
@@ -29,12 +29,9 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
 	int sourceport;
 
 
-	public ChatWindow(Interface inter, Interface client, Message msg) {
+	public ChatWindow(Interface inter, Interface client) {
 		initComponents();
-        this.msg = msg;
-        if (this.msg != null) {
-            chatBox.setText(this.msg.toString());
-        }
+
         this.inter = inter;
         this.client = client;
         this.pseudoLabel.setText("Pseudo : " + inter.getUser().getPseudo());
@@ -261,7 +258,7 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
 		String message = timeStamp();
         chatBox.append(message + System.lineSeparator());
         this.msg.addMessage(message);
-        History.getInstance().updateHistory(msg);
+        //History.getInstance().updateHistory(msg);
 
 	}
 

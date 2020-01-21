@@ -23,11 +23,11 @@ public class TCPServer implements Runnable {
 	private Socket chatSocket;
 	private final Interface inter;
 	private volatile boolean running = true;
-	private static History history;
+	//private static History history;
 
-	public TCPServer (Interface inter, History history) throws IOException {	
+	public TCPServer (Interface inter) throws IOException {	
 		this.inter = inter;
-		TCPServer.history = History.getInstance();
+		//TCPServer.history = History.getInstance();
 		this.serverSocket = new ServerSocket(User.portTCP);
 		this.inter.getUser().setPort(this.serverSocket.getLocalPort());
 	}
@@ -110,6 +110,7 @@ public class TCPServer implements Runnable {
 
 				System.out.println(message);
                 Interface client = new Interface(new User(chatSocket.getInetAddress().getHostAddress()));
+                
 				Database.save_message(client.getUser().getHost(),inter.getUser().getHost(),message);
 
 				/* Write the message on the chat window between this inter and client */
