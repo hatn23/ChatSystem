@@ -11,14 +11,13 @@ import data.Interface;
 //import data.Message;
 import java.io.ByteArrayOutputStream;
 
-public class TCPClient /*extends JFrame*/ implements Runnable {
+public class TCPClient implements Runnable {
 
 	private Socket chatSocket;
-	//private Message message;
 	private String message;
 	private String host;
 	private PrintWriter output;
-	private  int type;
+	private int type;
 	private int port;
 	private File file;
 	private Interface inter;

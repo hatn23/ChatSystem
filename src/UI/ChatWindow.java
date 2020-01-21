@@ -18,31 +18,31 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import data.*;
 import database.Database;
+import database.History;
 import network.TCPClientThread;
 
 @SuppressWarnings("serial")
 public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
 	private Interface inter;
 	private Interface client;
+	private Message msg;
 	int sourceport;
 
 
-	public ChatWindow(Interface inter, Interface client) {
+	public ChatWindow(Interface inter, Interface client, Message msg) {
 		initComponents();
-		this.inter = inter;
-		this.client = client;
-		this.pseudoLabel.setText("Pseudo: " + inter.getUser().getPseudo());
-		this.hostLabel.setText("My Host: " + inter.getUser().getHost());
-		sourceport = inter.getUser().getPort();
-		this.clientLabel.setText("To: " + client.getUser().getPseudo() + " at " + client.getUser().getHost());
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		addWindowListener(new java.awt.event.WindowAdapter() {
-			public void windowClosing(java.awt.event.WindowEvent evt) {
-				formWindowClosing(evt);
-			}
-		});
-		
-	}
+        this.msg = msg;
+        if (this.msg != null) {
+            chatBox.setText(this.msg.toString());
+        }
+        this.inter = inter;
+        this.client = client;
+        this.pseudoLabel.setText("Pseudo : " + inter.getUser().getPseudo());
+        this.hostLabel.setText("My Host : " + inter.getUser().getHost());
+        sourceport = inter.getUser().getPort();
+        this.clientLabel.setText("To : " + client.getUser().getPseudo() + " at " + client.getUser().getHost());
+    }
+
 
 
 	private void initComponents() {
@@ -258,8 +258,10 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
 
 	@Override
 	public void write(String string) {
-		String msg = timeStamp();
-        chatBox.append(msg + System.lineSeparator());
+		String message = timeStamp();
+        chatBox.append(message + System.lineSeparator());
+        this.msg.addMessage(message);
+        History.getInstance().updateHistory(msg);
 
 	}
 

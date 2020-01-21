@@ -21,13 +21,13 @@ public class TCPServer implements Runnable {
 
 	private ServerSocket serverSocket = null;
 	private Socket chatSocket;
-	private Interface inter;
-	private boolean running = true;
-	//private static History history;
+	private final Interface inter;
+	private volatile boolean running = true;
+	private static History history;
 
-	public TCPServer (Interface inter) throws IOException {	
+	public TCPServer (Interface inter, History history) throws IOException {	
 		this.inter = inter;
-		//TCPServer.history = History.getInstance();
+		TCPServer.history = History.getInstance();
 		this.serverSocket = new ServerSocket(User.portTCP);
 		this.inter.getUser().setPort(this.serverSocket.getLocalPort());
 	}
@@ -138,7 +138,7 @@ public class TCPServer implements Runnable {
                     initializeElements(seg[3], seg[1], img, seg[2]);
 
                 }
-				//chatSocket.close();
+			
 			}
 		}
 		catch (IOException | SQLException e) {
