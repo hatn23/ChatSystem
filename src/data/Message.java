@@ -22,6 +22,12 @@ public class Message implements Serializable {
 		
 	}
 	
+	public Message(String sender, String reciever) {
+		this.senderHost = sender;
+		this.receiverHost= reciever;
+		this.message = new ArrayList<>(1000);
+	}
+	
 	public User getSender() {
 		return this.sender;
 	}

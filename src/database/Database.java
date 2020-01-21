@@ -9,12 +9,13 @@ public class Database {
 	
 	private static Database instance = null;
 	
-	private Database() {
+	private Database() throws SQLException {
 			Driver();
 			Create_User_Table();
+			Create_message_Table();
 	}
 	
-	public static Database get_Instance() {
+	public static Database get_Instance() throws SQLException {
 		if (instance == null) {
 			instance = new Database();
 		}
@@ -52,7 +53,6 @@ public class Database {
 				stmt.executeUpdate(sql);
 				stmt.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -61,7 +61,6 @@ public class Database {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		}
@@ -220,7 +219,7 @@ public class Database {
 
 		
 	//Insert a new Message
-	public void Insert_new_Message (Message msg) throws SQLException {
+	public static void Insert_new_Message (Message msg) throws SQLException {
 		Connection conn = null;
 		try {
 			conn=Database.establish_Connection();
@@ -238,10 +237,8 @@ public class Database {
 	} 
 	
 	//Get Message History
-	public static ArrayList<String> get_History(User user1 , User user2) throws SQLException {
+	public static ArrayList<String> get_History(String IP1 , String IP2) throws SQLException {
 		Connection conn=null;
-		String IP1 = user1.getHost();
-		String IP2 = user2.getHost();
 		
 		ArrayList<String> results= new ArrayList<String>();
 		try {
@@ -326,9 +323,17 @@ public class Database {
 	
 	//An history does exist between 2 users
 	public static Boolean History_exist(User user1, User user2) throws SQLException {
-		return !(get_History(user1,user2).isEmpty());
+		return !(get_History(user1.getHost(),user2.getHost()).isEmpty());
 	}
+	
+	public static void save_message(String Sender, String Reciever, String Msg) throws SQLException {
+		Message message= new Message(Sender,Reciever);
+		message.addMessage(Msg);
+		Database.Insert_new_Message(message);
+	}
+
+	
+	
 	
 	
 }
-

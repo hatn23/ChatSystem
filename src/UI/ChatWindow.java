@@ -4,7 +4,9 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +17,8 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import data.*;
-import database.History;
+import database.Database;
+//import database.History;
 import network.TCPClientThread;
 
 @SuppressWarnings("serial")
@@ -26,12 +29,12 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
 	int sourceport;
 
 
-	public ChatWindow(Interface inter, Interface client, Message msg) {
+	public ChatWindow(Interface inter, Interface client/*, Message msg*/) {
 		initComponents();
-        this.msg = msg;
+        /*this.msg = msg;
         if (this.msg != null) {
             chatBox.setText(this.msg.toString());
-        }
+        }*/
         this.inter = inter;
         this.client = client;
         this.pseudoLabel.setText("Pseudo : " + inter.getUser().getPseudo());
@@ -236,6 +239,21 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
         SimpleDateFormat sdf = new SimpleDateFormat("[HH:mm, dd/MM/yyyy] - ");
         return sdf.format(cal.getTime());
 	}
+	
+	public void display_history(ArrayList<String> History) throws SQLException {
+        java.util.Iterator<String> iter = History.iterator(); 
+        
+        while(iter.hasNext()) {
+        	String this_msg =iter.next();
+        	String reciever = Database.get_Username(Database.get_Receiver(this_msg)) + " \n";
+        	String message= this_msg + " \n";
+        	String Time= Database.get_Time(this_msg) + " \n";
+        	chatBox.append(reciever);
+        	chatBox.append(message);
+        	chatBox.append(Time);
+        	chatBox.append("\n");
+        }
+	}
 
 
 	@Override
@@ -243,7 +261,7 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
 		String message = timeStamp();
         chatBox.append(message + System.lineSeparator());
         this.msg.addMessage(message);
-        History.getInstance().updateHistory(msg);
+        //History.getInstance().updateHistory(msg);
 
 	}
 

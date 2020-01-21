@@ -12,7 +12,7 @@ public class Interface {
 	private String message = "";
 	private HomeForm home;
 	private final HashMap<String, ChatWindow> chatWindowForUser;
-	private final History history = null;
+	//private final History history = null;
 
 	/* Constructors*/
 
@@ -20,15 +20,16 @@ public class Interface {
 	public Interface(User user) {
 		this.user = user;
 		this.onlineList = new ArrayList();
-		this.home = new HomeForm(this,History.getInstance());
+		//this.home = new HomeForm(this,History.getInstance());
+		this.home = new HomeForm(this);
 		this.chatWindowForUser = new HashMap<>();
 
 	}
 
 	/*Methods*/
-	public History getHistory() {
+	/*public History getHistory() {
 		return this.history;
-	}
+	}*/
 	
 	public User getUser() {
 		return this.user;
@@ -104,7 +105,7 @@ public class Interface {
 		return this.home;
 	}
 
-	public void updateHome() throws SQLException {
+	/*public void updateHome() throws SQLException {
 		this.home.getOnlineList().removeAllElements();
 		for (User u : this.getOnlineList()) {
 			if (u.isActive() == true) {
@@ -127,7 +128,43 @@ public class Interface {
 			}
 		}
 
+	}*/
+	
+	public void updateHome() throws SQLException {
+		ChatWindow chatWindow = null;
+		System.out.println("OK ChatWindow = null UpdateHome");
+		this.home.getOnlineList().removeAllElements();
+		System.out.println("OK removeAllElements UpdateHome");
+		for (User u : this.getOnlineList()) {
+			System.out.println("OnlineUser" +u.getPseudo());
+			if (u.isActive() == true) {
+				System.out.println("u.isActive==true");
+				if (u.getStatusNewMessage()) {
+					System.out.println("Status New Message" + u.getStatusNewMessage());		
+					this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
+				} else {
+					this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
+				}
+				if (!this.existChatWindow(u)) { 
+					System.out.println("existChatWindow");
+					Message msg = new Message(this.getUser(),u);
+					if (!(Database.get_History(this.getUser().getHost(),u.getHost()).isEmpty())) {
+						chatWindow = getChatWindowForUser(u.getHost());
+						chatWindow.display_history(Database.get_History(this.getUser().getHost(),u.getHost()));
+					}
+					else {
+						chatWindow = new ChatWindow(this, new Interface(u));
+						this.setChatWindowForUser(u, chatWindow);
+
+					}
+					
+				}
+			}
+		}
+
 	}
+	
+	
 
 	public InetAddress getBroadcast() throws UnknownHostException {
 
