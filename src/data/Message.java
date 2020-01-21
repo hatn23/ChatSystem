@@ -1,10 +1,10 @@
 package data;
 import java.io.Serializable;
 import java.util.*;
-
+@SuppressWarnings("serial")
 public class Message implements Serializable {
-	private User sender;
-	private User receiver;
+	private User sender = null;
+	private User receiver = null;
 	private String senderHost;
 	private String receiverHost;
 	private int receiverPort;

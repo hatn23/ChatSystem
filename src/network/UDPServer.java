@@ -3,22 +3,15 @@ package network;
 import java.net.*;
 import java.io.*;
 import data.*;
-import database.History;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 public class UDPServer implements Runnable {
-	
-	 /*
-     * Attributs
-     */
 	 private final Interface inter;
 	 private final DatagramSocket dgramSocket;
 	 private final DatagramPacket inPacket;
 	 private volatile boolean running = true;
-
 	 
 	 public UDPServer(Interface inter) throws SocketException{
             this.inter = inter;
@@ -49,7 +42,7 @@ public class UDPServer implements Runnable {
                 String host = inPacket.getAddress().getHostAddress();
                 
                 if (msg.equals("broadcast") && !host.equals(inter.getUser().getHost())) {
-                    System.out.println("[bcst] " + host + " sends a " + msg);
+                    System.out.println("[broadcast] " + host + " sends a " + msg);
                     new UDPClientThread().sendMessageTo(host, User.portUDP, this.inter.getUser().getPseudo() + ":" + this.inter.getUser().getPort() + ":OK");
                     this.inter.updateOnlineList(new User(pseudo, host));
                     this.inter.updateHome();
@@ -57,15 +50,15 @@ public class UDPServer implements Runnable {
                 }
                 
                 if (msg.equals("disconnect") && !host.equals(inter.getUser().getHost())) {
-                    System.out.println("[dis] " + host + " sends a " + msg);
+                    System.out.println("[disconnect] " + host + " sends a " + msg);
                     User usr = new User(pseudo, host);
-                    usr.setDisconnect(true);
+                    usr.setActive(false);
                     this.inter.updateOnlineList(usr);
                     this.inter.updateHome();
                 }
                 
                 if (msg.equals("rename") && !host.equals(inter.getUser().getHost())) {
-                    System.out.println("[rnm] " + host + " sends a " + msg);
+                    System.out.println("[rename] " + host + " sends a " + msg);
                     String oldName = this.inter.findPseudobyIP(host);
                     this.inter.updateOnlineList(new User(pseudo, host));
                     this.inter.updateHome();
@@ -74,7 +67,7 @@ public class UDPServer implements Runnable {
                 }
                 
                 if (msg.equals("OK")) {
-                    System.out.println("[vcst] " + host + " responds " + msg);
+                    System.out.println("[broadcast] " + host + " responds " + msg);
                     this.inter.updateOnlineList(new User(pseudo, host));
                     this.inter.updateHome();
                 }

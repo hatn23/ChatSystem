@@ -2,7 +2,6 @@ package UI;
 
 import java.awt.event.*;
 import java.net.UnknownHostException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,7 +10,6 @@ import javax.swing.text.BadLocationException;
 
 import data.Interface;
 import data.User;
-import database.*;
 import network.UDPClientThread;
 
 @SuppressWarnings("serial")
@@ -47,12 +45,7 @@ public class ChangePseudo extends javax.swing.JFrame {
 
         pseudo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                try {
-					pseudoFieldKeyPressed(evt);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                pseudoFieldKeyPressed(evt);
             }
         });
 
@@ -66,12 +59,7 @@ public class ChangePseudo extends javax.swing.JFrame {
         confirmButton.setText("Confirm");
         confirmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-					confirmButtonActionPerformed(evt);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                confirmButtonActionPerformed(evt);
             }
         });
 
@@ -118,14 +106,13 @@ public class ChangePseudo extends javax.swing.JFrame {
 		this.dispose();
 	}
 	
-	private void confirmButtonActionPerformed(ActionEvent evt) throws SQLException {
+	private void confirmButtonActionPerformed(ActionEvent evt) {
 		String newName = pseudo.getText();
         String oldName = this.inter.getUser().getPseudo();
         if (this.checkPseudoUnique(newName) && !newName.equals("") && !newName.equals(oldName)) {
 
             try {
                 this.inter.getUser().setPseudo(newName);
-                Database.Update_Username(this.inter.getUser());
                 this.home.setPseudoLabel("Your nickname : " + newName);
                 this.home.writeNotification(oldName + " has changed name to " + newName + System.lineSeparator());
                 this.confirm = true;
@@ -154,7 +141,7 @@ public class ChangePseudo extends javax.swing.JFrame {
 	}
 	
 
-	private void pseudoFieldKeyPressed(KeyEvent evt) throws SQLException {
+	private void pseudoFieldKeyPressed(KeyEvent evt) {
 		if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String newName = pseudo.getText();
             String oldName = this.inter.getUser().getPseudo();
@@ -162,7 +149,6 @@ public class ChangePseudo extends javax.swing.JFrame {
 
                 try {
                     this.inter.getUser().setPseudo(newName);
-                    Database.Update_Username(this.inter.getUser());
                     this.home.setPseudoLabel("Your nickname : " + newName);
                     this.home.writeNotification(oldName + " has changed name to " + newName + System.lineSeparator());
                     this.confirm = true;
