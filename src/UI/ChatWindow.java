@@ -4,7 +4,9 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +17,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import data.*;
+import database.Database;
 import network.TCPClientThread;
 
 @SuppressWarnings("serial")
@@ -158,13 +161,13 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
             String msg = "[" + inter.getUser().getPseudo() + "] : " + message.getText();
             message.setText("");
             new TCPClientThread().sendMessageTo(this.inter, this.client.getUser().getHost(), User.portTCP, msg);
+            Database.save_message(this.inter.getUser().getHost(),this.client.getUser().getHost(),msg);
             this.inter.getChatWindowForUser(client.getUser().getHost()).write(msg);
         } catch (Exception ex) {
             Logger.getLogger(ChatWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
 		
 	}
-
 
 	protected void messageKeyPressed(KeyEvent evt) {
 		if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -235,6 +238,21 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
 		Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("[HH:mm, dd/MM/yyyy] - ");
         return sdf.format(cal.getTime());
+	}
+	
+	public void display_history(ArrayList<String> History) throws SQLException {
+        java.util.Iterator<String> iter = History.iterator(); 
+        
+        while(iter.hasNext()) {
+        	String this_msg =iter.next();
+        	String reciever = Database.get_Username(Database.get_Receiver(this_msg)) + " \n";
+        	String message= this_msg + " \n";
+        	String Time= Database.get_Time(this_msg) + " \n";
+        	chatBox.append(reciever);
+        	chatBox.append(message);
+        	chatBox.append(Time);
+        	chatBox.append("\n");
+        }
 	}
 
 

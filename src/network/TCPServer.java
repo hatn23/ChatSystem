@@ -110,6 +110,8 @@ public class TCPServer implements Runnable {
 
 				System.out.println(message);
                 Interface client = new Interface(new User(chatSocket.getInetAddress().getHostAddress()));
+				Database.save_message(client.getUser().getHost(),inter.getUser().getHost(),message);
+
 				/* Write the message on the chat window between this inter and client */
 				//Interface client = new Interface (new User(chatSocket.getInetAddress().getHostAddress()));
                 if (message.charAt(0) == "[".charAt(0)) {
