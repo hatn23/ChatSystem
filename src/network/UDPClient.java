@@ -27,9 +27,10 @@ public class UDPClient implements Runnable {
 	}
 
 
-
+	@Override
 	public void run() {
 		try {
+			//request a connexion to the given user
 			this.dgramSocket = new DatagramSocket();
 			dgramSocket.send(outPacket);
 			dgramSocket.close();

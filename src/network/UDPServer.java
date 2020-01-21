@@ -39,7 +39,10 @@ public class UDPServer implements Runnable {
                 String pseudo = seg[0];
                 int port = Integer.parseInt(seg[1]);
                 msg = seg[2];
+                System.out.println(msg);
                 String host = inPacket.getAddress().getHostAddress();
+                System.out.println("my host" + host);
+                System.out.println("user Host"+ inter.getUser().getHost());
                 
                 if (msg.equals("broadcast") && !host.equals(inter.getUser().getHost())) {
                     System.out.println("[broadcast] " + host + " sends a " + msg);
