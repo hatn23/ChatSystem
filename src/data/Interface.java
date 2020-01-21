@@ -19,7 +19,7 @@ public class Interface {
 	public Interface(User user) {
 		this.user = user;
 		this.onlineList = new ArrayList();
-		//this.home = new HomeForm(this,History.getInstance());
+		this.home = new HomeForm(this);
 		this.chatWindowForUser = new HashMap<>();
 
 	}
@@ -110,16 +110,15 @@ public class Interface {
 					this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
 				}
 				if (!this.existChatWindow(u)) { 
-					Message msg = new Message(this.getUser(),u);
 					if (!(Database.get_History(this.getUser().getHost(),u.getHost()).isEmpty())) {
 						chatWindow = getChatWindowForUser(u.getHost());
 						chatWindow.display_history(Database.get_History(this.getUser().getHost(),u.getHost()));
 					}
 					else {
 						chatWindow = new ChatWindow(this, new Interface(u));
+						this.setChatWindowForUser(u, chatWindow);
 
 					}
-					this.setChatWindowForUser(u, chatWindow);
 				}
 			}
 		}
