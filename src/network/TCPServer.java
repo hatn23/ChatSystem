@@ -21,8 +21,8 @@ public class TCPServer implements Runnable {
 
 	private ServerSocket serverSocket = null;
 	private Socket chatSocket;
-	private Interface inter;
-	private boolean running = true;
+	private final Interface inter;
+	private volatile boolean running = true;
 	private static History history;
 
 	public TCPServer (Interface inter, History history) throws IOException {	

@@ -11,7 +11,7 @@ public class Interface {
 	private ArrayList<User> onlineList; 
 	private String message = "";
 	private HomeForm home;
-	private final HashMap<String, ChatWindow> chatWindowForUser;
+	private final HashMap<String, ChatWindow> chatWindowForUser; //String -> ipAddress
 	private static final History history = null;
 
 	/* Constructors*/
@@ -79,17 +79,17 @@ public class Interface {
 					userInList.setPseudo(u.getPseudo());
 					this.message = " Name change " + userInList.getPseudo() + " > " + u.getPseudo();
 				}
-				if (u.isActive() == true) {
-					System.out.println(" Status:connected ");
-					userInList.setActive(true);
+				if (u.getStatusDisconnect() == false) {
+					System.out.println(" Status : connected ");
+					userInList.setDisconnect(false);
 				} else {
-					System.out.println(" Status:disconnected ");
-					userInList.setActive(false);
+					System.out.println(" Status : disconnected ");
+					userInList.setDisconnect(true);
 				}
 				if (u.getStatusNewMessage() == false) {
 					userInList.setNewMessage(false);
 				} else {
-					System.out.println(" New Message Status:new message ");
+					System.out.println(" New Message Status : new message ");
 					userInList.setNewMessage(true);
 				}
 				return;
@@ -106,7 +106,7 @@ public class Interface {
 	public void updateHome() throws SQLException {
 		this.home.getOnlineList().removeAllElements();
 		for (User u : this.getOnlineList()) {
-			if (u.isActive() == true) {
+			if (u.getStatusDisconnect() == false) {
 				if (u.getStatusNewMessage()) {
 					this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
 				} else {
