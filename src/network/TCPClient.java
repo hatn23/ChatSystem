@@ -18,7 +18,7 @@ public class TCPClient /*extends JFrame*/ implements Runnable {
 	private String message;
 	private String host;
 	private PrintWriter output;
-	private  int type;
+	private int type;
 	private int port;
 	private File file;
 	private Interface inter;

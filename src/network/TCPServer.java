@@ -23,6 +23,7 @@ public class TCPServer implements Runnable {
 	private Socket chatSocket;
 	private Interface inter;
 	private boolean running = true;
+	@SuppressWarnings("unused")
 	private static History history;
 
 	public TCPServer (Interface inter, History history) throws IOException {	

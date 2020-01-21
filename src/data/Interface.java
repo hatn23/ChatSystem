@@ -12,10 +12,11 @@ public class Interface {
 	private String message = "";
 	private HomeForm home;
 	private final HashMap<String, ChatWindow> chatWindowForUser;
-	private static final History history = null;
+	private final History history = null;
 
 	/* Constructors*/
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Interface(User user) {
 		this.user = user;
 		this.onlineList = new ArrayList();
@@ -178,22 +179,22 @@ public class Interface {
 	}
 
 	public boolean checkPseudo() {
-		/*Boolean res = true;
+		Boolean res = true;
 		for (User user : this.getOnlineList()) {
 			System.out.println(user.getPseudo());
 			if (this.getUser().getPseudo().equals(user.getPseudo())) {
 				res = false;
 			}
 		}
-		return res;*/
-		boolean res = true;
+		return res;
+		/*boolean res = true;
 		try {
 			res = Database.is_Unique(this.user.getPseudo());
 		}
 		catch(SQLException ex) {
 			ex.printStackTrace();
 		}
-		return res;
+		return res;*/
 		
 	}
 	

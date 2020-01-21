@@ -2,6 +2,7 @@ package data;
 import java.io.Serializable;
 import java.net.*;
 
+@SuppressWarnings("serial")
 public class User implements Serializable {
 	private String host;
 	private String pseudonyme;

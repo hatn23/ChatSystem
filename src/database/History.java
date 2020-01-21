@@ -143,7 +143,7 @@ public class History {
     public boolean existHistory(Message l) {
         String sql = "SELECT ROWID FROM history WHERE hostsource = ? AND hostdest = ?";
 
-        Object result = null;
+        //Object result = null;
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
