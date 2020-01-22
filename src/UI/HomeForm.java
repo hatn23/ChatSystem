@@ -31,7 +31,7 @@ public class HomeForm extends javax.swing.JFrame {
 	private Interface inter;
 	static Thread listenTCP = null;
 	static TCPServer runnableTCP = null;
-	//public static History history;
+	public static History history;
 	DefaultListModel<String>  onlineListModel;
 
 
@@ -39,9 +39,9 @@ public class HomeForm extends javax.swing.JFrame {
 	 * Creates new form HomeForm
 	 */
 	@SuppressWarnings("static-access")
-	public HomeForm(Interface inter/*, History history*/) {
+	public HomeForm(Interface inter, History history) {
 		this.inter = inter;
-		//this.history = history.getInstance();
+		this.history = history.getInstance();
 		this.onlineListModel = new DefaultListModel<>();
 		for(User u : inter.getOnlineList()){
 			onlineListModel.addElement(u.getPseudo()+ ":"+ u.getHost()+":"+u.getPort());

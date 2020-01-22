@@ -26,7 +26,7 @@ public class TCPServer implements Runnable {
 	@SuppressWarnings("unused")
 	private static History history;
 
-	public TCPServer (Interface inter/*, History history*/) throws IOException {	
+	public TCPServer (Interface inter, History history) throws IOException {	
 		this.inter = inter;
 		TCPServer.history = History.getInstance();
 		this.serverSocket = new ServerSocket(User.portTCP);

@@ -34,7 +34,7 @@ public class LoginForm extends javax.swing.JFrame {
 	static Thread listenUDP = null;
 	static TCPServer runnableTCP = null;
 	static UDPServer runnableUDP = null;
-	//private static final History history = null;
+	private static final History history = null;
 
 
 	/**
@@ -251,7 +251,7 @@ public class LoginForm extends javax.swing.JFrame {
 					runnableTCP.terminate();
 					listenTCP.join();
 				}
-				runnableTCP = new TCPServer(this.inter/*, History.getInstance()*/);
+				runnableTCP = new TCPServer(this.inter, History.getInstance());
 				listenTCP = new Thread(runnableTCP);
 				listenTCP.start();
 
@@ -306,7 +306,7 @@ public class LoginForm extends javax.swing.JFrame {
 						runnableTCP.terminate();
 						listenTCP.join();
 					}
-					runnableTCP = new TCPServer(this.inter/*,History.getInstance()*/);
+					runnableTCP = new TCPServer(this.inter,History.getInstance());
 					listenTCP = new Thread(runnableTCP);
 					listenTCP.start();
 
