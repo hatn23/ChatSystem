@@ -110,9 +110,9 @@ public class Interface {
 		for (User u : this.getOnlineList()) {
 			if (u.getDisconnect() == false) {
 				if (u.getStatusNewMessage()) {
-					this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
+					this.home.getOnlineList().addElement("[!] " + u.getHost() + ":" + u.getPseudo());
 				} else {
-					this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
+					this.home.getOnlineList().addElement(u.getHost() + ":" + u.getPseudo());
 				}
 				if (!this.existChatWindow(u)) { 
 					Message msg = new Message(this.getUser(),u);
@@ -142,9 +142,9 @@ public class Interface {
 				System.out.println("u.getDisconnect == false");
 				if (u.getStatusNewMessage()) {
 					System.out.println("Status New Message" + u.getStatusNewMessage());		
-					this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
+					this.home.getOnlineList().addElement("[!] " + u.getHost() + ":" + u.getPseudo());
 				} else {
-					this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
+					this.home.getOnlineList().addElement(u.getHost() + ":" + u.getPseudo());
 				}
 				if (!this.existChatWindow(u)) { 
 					System.out.println("existChatWindow");

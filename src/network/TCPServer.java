@@ -117,9 +117,14 @@ public class TCPServer implements Runnable {
                     /* Write the message on the chat window between this inter and client */
 
                     String seg[] = message.split(":");
+                    System.out.println("TCP Server seg[0] :" +seg[0] );
+                    System.out.println("TCP Server seg[1] :" +seg[1] );
+                    System.out.println("TCP Server seg[2] :" +seg[2] );
+                    System.out.println("TCP Server seg[3] :" +seg[3] );
+                   
                     client.getUser().setPseudo(seg[2]);
                     if (!this.inter.getChatWindowForUser(client.getUser().getHost()).isVisible()) {
-                        this.inter.updateOnlineList(new User(client.getUser().getPseudo(), client.getUser().getHost(), true));
+                        this.inter.updateOnlineList(new User(client.getUser().getHost(),client.getUser().getPseudo(),  true));
                         this.inter.updateHome();
                     }
 
