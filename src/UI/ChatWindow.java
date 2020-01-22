@@ -31,10 +31,10 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
 
 	public ChatWindow(Interface inter, Interface client, Message msg) {
 		initComponents();
-        /*this.msg = msg;
+        this.msg = msg;
         if (this.msg != null) {
             chatBox.setText(this.msg.toString());
-        }*/
+        }
         this.inter = inter;
         this.client = client;
         this.pseudoLabel.setText("Pseudo : " + inter.getUser().getPseudo());
