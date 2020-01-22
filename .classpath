@@ -7,11 +7,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.27.2.1.jar"/>
-	<classpathentry kind="lib" path="/home/xtran/Ha/ChatSystem/extra/commons-lang3-3.8.1.jar"/>
-	<classpathentry kind="lib" path="/home/xtran/Ha/ChatSystem/extra/commons-lang3-3.8.1-javadoc.jar"/>
-	<classpathentry kind="lib" path="/home/xtran/Ha/ChatSystem/extra/commons-lang3-3.8.1-sources.jar"/>
-	<classpathentry kind="lib" path="/home/xtran/Ha/ChatSystem/extra/commons-lang3-3.8.1-tests.jar"/>
-	<classpathentry kind="lib" path="/home/xtran/Ha/ChatSystem/extra/commons-lang3-3.8.1-test-sources.jar"/>
-	<classpathentry kind="lib" path="/home/xtran/Ha/ChatSystem/extra/mysql-connector-java-8.0.13.jar"/>
+	<classpathentry kind="lib" path="extra/commons-lang3-3.8.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="extra/commons-lang3-3.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="extra/commons-lang3-3.8.1-test-sources.jar"/>
+	<classpathentry kind="lib" path="extra/commons-lang3-3.8.1-tests.jar"/>
+	<classpathentry kind="lib" path="extra/commons-lang3-3.8.1.jar"/>
+	<classpathentry kind="lib" path="extra/mysql-connector-java-8.0.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

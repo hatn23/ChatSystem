@@ -11,7 +11,7 @@ public class Interface {
 	private ArrayList<User> onlineList; 
 	private String message = "";
 	private HomeForm home;
-	private final HashMap<String, ChatWindow> chatWindowForUser;
+	private final HashMap<String, ChatWindow> chatWindowForUser; //String -> ipAddress
 	//private final History history = null;
 
 	/* Constructors*/
@@ -81,12 +81,12 @@ public class Interface {
 					userInList.setPseudo(u.getPseudo());
 					this.message = " Name change " + userInList.getPseudo() + " > " + u.getPseudo();
 				}
-				if (u.isActive() == true) {
+				if (u.getDisconnect() == false) {
 					System.out.println(" Status:connected ");
-					userInList.setActive(true);
+					userInList.setDisconnect(false);
 				} else {
 					System.out.println(" Status:disconnected ");
-					userInList.setActive(false);
+					userInList.setDisconnect(true);
 				}
 				if (u.getStatusNewMessage() == false) {
 					userInList.setNewMessage(false);
@@ -108,7 +108,7 @@ public class Interface {
 	/*public void updateHome() throws SQLException {
 		this.home.getOnlineList().removeAllElements();
 		for (User u : this.getOnlineList()) {
-			if (u.isActive() == true) {
+			if (u.getDisconnect == false) {
 				if (u.getStatusNewMessage()) {
 					this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
 				} else {
@@ -130,6 +130,7 @@ public class Interface {
 
 	}*/
 	
+	@SuppressWarnings("unused")
 	public void updateHome() throws SQLException {
 		ChatWindow chatWindow = null;
 		System.out.println("OK ChatWindow = null UpdateHome");
@@ -137,8 +138,8 @@ public class Interface {
 		System.out.println("OK removeAllElements UpdateHome");
 		for (User u : this.getOnlineList()) {
 			System.out.println("OnlineUser" +u.getPseudo());
-			if (u.isActive() == true) {
-				System.out.println("u.isActive==true");
+			if (u.getDisconnect() == false) {
+				System.out.println("u.getDisconnect == false");
 				if (u.getStatusNewMessage()) {
 					System.out.println("Status New Message" + u.getStatusNewMessage());		
 					this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
