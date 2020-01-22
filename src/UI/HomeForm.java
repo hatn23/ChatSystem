@@ -291,7 +291,7 @@ public class HomeForm extends javax.swing.JFrame {
 			 ** Then, open the chatwindow with him
 			 */
 			try {
-				Interface client = new Interface(new User(seg[0], seg[1]));
+				Interface client = new Interface(new User(seg[1], seg[0]));
 				if (seg[0].charAt(0) == "[".charAt(0)) {
 					String split[] = seg[0].split("] ");
 					client.getUser().setPseudo(split[1]);
