@@ -88,7 +88,7 @@ public class User implements Serializable {
 	}
 	@Override
     public String toString() {
-        return this.pseudonyme + " (" + this.host + " : " + this.port + ")";
+        return this.host + " (" + this.pseudonyme + " : " + this.port + ")";
     }
 
 	
