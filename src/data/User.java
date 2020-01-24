@@ -26,24 +26,24 @@ public class User implements Serializable {
 		this.newMessage = false;
 	}
 	
-	public User(String host, String Pseudo) throws UnknownHostException {
-		this.pseudonyme = Pseudo;
+	public User(String host, String pseudo) throws UnknownHostException {
+		this.pseudonyme = pseudo;
 		this.host = host;
 		this.disconnect = false;
 		this.port = portTCP;
 		this.newMessage = false;
 	}
 	
-	public User(String host,String Pseudo, int Port) throws UnknownHostException {
-		this.pseudonyme = Pseudo;
+	public User(String host,String pseudo, int Port) throws UnknownHostException {
+		this.pseudonyme = pseudo;
 		this.host = host;
 		this.disconnect = false;
 		this.port = Port;
 		this.newMessage = false;
 	}
 	
-	public User(String host,String Pseudo, Boolean newMessage) throws UnknownHostException {
-		this.pseudonyme = Pseudo;
+	public User(String host,String pseudo, Boolean newMessage) throws UnknownHostException {
+		this.pseudonyme = pseudo;
 		this.host = host;
 		this.disconnect = false;
 		this.port = portTCP;
@@ -58,8 +58,8 @@ public class User implements Serializable {
 	public String getHost() {
 		return this.host;
 	}
-	public void setPseudo(String NewPseudo) {
-		this.pseudonyme = NewPseudo;
+	public void setPseudo(String newPseudo) {
+		this.pseudonyme = newPseudo;
 	}
 
 	public String getPseudo() {

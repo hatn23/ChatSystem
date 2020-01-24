@@ -11,10 +11,9 @@ import data.Interface;
 //import data.Message;
 import java.io.ByteArrayOutputStream;
 
-public class TCPClient /*extends JFrame*/ implements Runnable {
+public class TCPClient implements Runnable {
 
 	private Socket chatSocket;
-	//private Message message;
 	private String message;
 	private String host;
 	private PrintWriter output;
@@ -72,7 +71,7 @@ public class TCPClient /*extends JFrame*/ implements Runnable {
 				this.output = new PrintWriter(chatSocket.getOutputStream());
 
 				/* Send the message...*/
-				output.println(message + ":" + this.inter.getUser().getPseudo() + ":" + this.inter.getUser().getPort());
+				output.println(message + ":" + this.inter.getUser().getHost() + ":" + this.inter.getUser().getPort());
 				output.flush();
 				/* Close the socket */
 				chatSocket.close();
@@ -90,7 +89,7 @@ public class TCPClient /*extends JFrame*/ implements Runnable {
 				String imgAsString = encodeToString(bimg, ext);
 
 				this.output = new PrintWriter(chatSocket.getOutputStream());
-				output.println(imgAsString + ":" + this.inter.getUser().getPseudo() + ":" + ext + ":" + this.file.getName());
+				output.println(imgAsString + ":" + this.inter.getUser().getHost() + ":" + ext + ":" + this.file.getName());
 				System.out.println("FILE NAME: " + this.file.getName());
 				output.flush();
 				chatSocket.close();

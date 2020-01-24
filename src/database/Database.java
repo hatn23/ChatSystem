@@ -100,7 +100,7 @@ public class Database {
 			String pseudo = user.getPseudo();
 			String IP = user.getHost();
 
-			String sql = "INSERT INTO User (Username , IP_address) " + " VALUES ( '" + pseudo + "','" + IP + "');";
+			String sql = "INSERT INTO User (IP_address , Username) " + " VALUES ( '" + IP + "','" + pseudo + "');";
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 

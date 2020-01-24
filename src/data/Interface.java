@@ -77,9 +77,9 @@ public class Interface {
 				System.out.println("[user] This user is already on the list");
 				if (userInList.getPseudo().equals(u.getPseudo())) {
 				} else {
-					System.out.println(" Name change " + userInList.getPseudo() + " > " + u.getPseudo());
+					System.out.println(" Name change " + userInList.getPseudo() + " -> " + u.getPseudo());
 					userInList.setPseudo(u.getPseudo());
-					this.message = " Name change " + userInList.getPseudo() + " > " + u.getPseudo();
+					this.message = " Name change " + userInList.getPseudo() + " -> " + u.getPseudo();
 				}
 				if (u.getDisconnect() == false) {
 					System.out.println(" Status:connected ");
