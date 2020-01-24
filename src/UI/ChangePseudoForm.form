@@ -195,6 +195,9 @@
           <Color blue="6a" green="6a" red="e2" type="rgb"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="jPanel3MouseDragged"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">

@@ -77,6 +77,11 @@ public class HomeForm extends javax.swing.JFrame {
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(226, 106, 106));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
 
         jLabelClose.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabelClose.setForeground(new java.awt.Color(255, 255, 255));
@@ -286,7 +291,8 @@ public class HomeForm extends javax.swing.JFrame {
 		if (!jListOnline.isSelectionEmpty()) {
 			String friend = jListOnline.getSelectedValue();
 			String seg[] = friend.split(":");
-
+			System.out.println("jListOnlineMouseClicked seg[0]" + seg[0]);
+			System.out.println("jListOnlineMouseClicked seg[0]" + seg[1]);
 			/* Find an user when we know his nickname
 			 ** Then, open the chatwindow with him
 			 */
@@ -311,6 +317,12 @@ public class HomeForm extends javax.swing.JFrame {
 			}
 		}
 	}//GEN-LAST:event_jListOnlineMouseClicked
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+         int coordinateX = evt.getXOnScreen();
+        int coordinateY = evt.getYOnScreen();
+        this.setLocation(coordinateX, coordinateY);
+    }//GEN-LAST:event_jPanel1MouseDragged
 
 	public void setPseudoLabel(String label) {
 		jLabelPseudo.setText(" - "+ label);

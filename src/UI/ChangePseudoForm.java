@@ -156,6 +156,11 @@ public class ChangePseudoForm extends javax.swing.JFrame {
         );
 
         jPanel3.setBackground(new java.awt.Color(226, 106, 106));
+        jPanel3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel3MouseDragged(evt);
+            }
+        });
 
         jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
@@ -305,6 +310,12 @@ public class ChangePseudoForm extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTextFieldNewPseudoKeyPressed
+
+    private void jPanel3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseDragged
+         int coordinateX = evt.getXOnScreen();
+        int coordinateY = evt.getYOnScreen();
+        this.setLocation(coordinateX, coordinateY);
+    }//GEN-LAST:event_jPanel3MouseDragged
 
     public String getNewPseudo() {
 		if (this.confirm) {

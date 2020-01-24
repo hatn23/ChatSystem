@@ -158,7 +158,7 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
 
 	protected void sendButtonActionPerformed(ActionEvent evt) {
 		try {
-            String msg = "[" + inter.getUser().getPseudo() + "] : " + message.getText();
+            String msg = "[" + inter.getUser().getHost() + "] : " + message.getText();
             message.setText("");
             new TCPClientThread().sendMessageTo(this.inter, this.client.getUser().getHost(), User.portTCP, msg);
             this.inter.getChatWindowForUser(client.getUser().getHost()).write(msg);
@@ -172,7 +172,7 @@ public class ChatWindow extends javax.swing.JFrame implements WritableWindows {
 	protected void messageKeyPressed(KeyEvent evt) {
 		if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
-                String msg = "[" + inter.getUser().getPseudo() + "] : " + message.getText();
+                String msg = "[" + inter.getUser().getHost() + "] : " + message.getText();
                 message.setText("");
                 new TCPClientThread().sendMessageTo(this.inter, this.client.getUser().getHost(), User.portTCP, msg);
                 this.inter.getChatWindowForUser(client.getUser().getHost()).write(msg);
