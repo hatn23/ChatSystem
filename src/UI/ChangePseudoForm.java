@@ -77,6 +77,7 @@ public class ChangePseudoForm extends javax.swing.JFrame {
 
         jLabelWarning.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelWarning.setForeground(new java.awt.Color(241, 130, 141));
+        jLabelWarning.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelWarning.setText("Please choose your new username");
 
         jTextFieldCurrentPseudo.setEditable(false);
@@ -96,7 +97,8 @@ public class ChangePseudoForm extends javax.swing.JFrame {
             }
         });
 
-        jButtonCancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonCancel.setBackground(new java.awt.Color(102, 102, 102));
+        jButtonCancel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButtonCancel.setText("Cancel");
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +106,7 @@ public class ChangePseudoForm extends javax.swing.JFrame {
             }
         });
 
+        jButtonConfirm.setBackground(new java.awt.Color(255, 51, 51));
         jButtonConfirm.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonConfirm.setText("Confirm");
         jButtonConfirm.addActionListener(new java.awt.event.ActionListener() {
@@ -116,10 +119,6 @@ public class ChangePseudoForm extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelWarning)
-                .addGap(86, 86, 86))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -134,6 +133,10 @@ public class ChangePseudoForm extends javax.swing.JFrame {
                     .addComponent(jTextFieldCurrentPseudo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldNewPseudo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,6 +167,7 @@ public class ChangePseudoForm extends javax.swing.JFrame {
 
         jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabelTitle.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitle.setText("Rename");
 
         jLabelClose.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -189,9 +193,8 @@ public class ChangePseudoForm extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelTitle)
-                .addGap(157, 157, 157)
+                .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelMin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelClose)

@@ -11,7 +11,7 @@ public class Interface {
 	private ArrayList<User> onlineList; 
 	private String message = "";
 	private HomeForm home;
-	private final HashMap<String, ChatWindow> chatWindowForUser; //String -> ipAddress
+	private final HashMap<String, ChatWindowForm> chatWindowForUser; //String -> ipAddress
 	private final History history = null;
 
 	/* Constructors*/
@@ -122,7 +122,7 @@ public class Interface {
 					else {
 						History.getInstance().addHistory((msg));
 					}
-					ChatWindow chatWindow = new ChatWindow(this, new Interface(u),msg);
+					ChatWindowForm chatWindow = new ChatWindowForm(this, new Interface(u),msg);
 					this.setChatWindowForUser(u, chatWindow);
 				}
 			}
@@ -198,11 +198,11 @@ public class Interface {
 		return res;
 	}
 
-	public void setChatWindowForUser(User user, ChatWindow chatWindow) {
+	public void setChatWindowForUser(User user, ChatWindowForm chatWindow) {
 		this.chatWindowForUser.put(user.getHost(), chatWindow);
 	}
 
-	public ChatWindow getChatWindowForUser(String ipAddress) {
+	public ChatWindowForm getChatWindowForUser(String ipAddress) {
 		return this.chatWindowForUser.get(ipAddress);
 	}
 
@@ -211,7 +211,7 @@ public class Interface {
 	}
 
 	public void closeAllChatWindow() {
-		for (ChatWindow c : chatWindowForUser.values()) {
+		for (ChatWindowForm c : chatWindowForUser.values()) {
 			c.closeWindow();
 		}
 	}
