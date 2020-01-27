@@ -50,20 +50,20 @@ public class UDPServer implements Runnable {
 				msg = seg[2];
 				System.out.println(msg);
 				String host = inPacket.getAddress().getHostAddress();
-				System.out.println("my host" + host);
-				System.out.println("user Host"+ inter.getUser().getHost());
+				//System.out.println("my host" + host);
+				//System.out.println("user Host"+ inter.getUser().getHost());
 
 				if (msg.equals("broadcast") && !host.equals(inter.getUser().getHost())) {
 					System.out.println("[bcst] " + host + " sends a " + msg);
 					new UDPClientThread().sendMessageTo(host, User.portUDP, this.inter.getUser().getPseudo() + ":" + this.inter.getUser().getPort() + ":OK");
-					this.inter.updateOnlineList(new User(pseudo, host));
+					this.inter.updateOnlineList(new User(host, pseudo));
 					this.inter.updateHome();
 
 				}
 
 				if (msg.equals("disconnect") && !host.equals(inter.getUser().getHost())) {
 					System.out.println("[dis] " + host + " sends a " + msg);
-					User usr = new User(pseudo, host);
+					User usr = new User(host, pseudo);
 					usr.setDisconnect(true);
 					this.inter.updateOnlineList(usr);
 					this.inter.updateHome();
@@ -72,7 +72,7 @@ public class UDPServer implements Runnable {
 				if (msg.equals("rename") && !host.equals(inter.getUser().getHost())) {
 					System.out.println("[rnm] " + host + " sends a " + msg);
 					String oldName = this.inter.findPseudobyIP(host);
-					this.inter.updateOnlineList(new User(pseudo, host));
+					this.inter.updateOnlineList(new User(host, pseudo));
 					this.inter.updateHome();
 					this.inter.getChatWindowForUser(host).setTitle(pseudo + ": Chat");
 					this.inter.getHome().writeNotification(oldName + " changed name to " + pseudo);
@@ -80,7 +80,7 @@ public class UDPServer implements Runnable {
 
 				if (msg.equals("OK")) {
 					System.out.println("[bcsr] " + host + " responds " + msg);
-					this.inter.updateOnlineList(new User(pseudo, host));
+					this.inter.updateOnlineList(new User(host, pseudo));
 					this.inter.updateHome();
 				}
 			}

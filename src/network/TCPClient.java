@@ -14,12 +14,12 @@ import java.io.ByteArrayOutputStream;
 public class TCPClient implements Runnable {
 
 	private Socket chatSocket;
-	private String message;
-	private String host;
+	private final String message;
+	private final String host;
 	private PrintWriter output;
-	private int type;
-	private int port;
-	private File file;
+	private final int type;
+	private final int port;
+	private final File file;
 	private Interface inter;
 
 

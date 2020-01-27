@@ -292,7 +292,7 @@ public class HomeForm extends javax.swing.JFrame {
 			String friend = jListOnline.getSelectedValue();
 			String seg[] = friend.split(":");
 			System.out.println("jListOnlineMouseClicked seg[0]" + seg[0]);
-			System.out.println("jListOnlineMouseClicked seg[0]" + seg[1]);
+			System.out.println("jListOnlineMouseClicked seg[1]" + seg[1]);
 			/* Find an user when we know his nickname
 			 ** Then, open the chatwindow with him
 			 */

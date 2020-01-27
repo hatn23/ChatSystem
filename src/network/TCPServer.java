@@ -23,7 +23,6 @@ public class TCPServer implements Runnable {
 	private Socket chatSocket;
 	private Interface inter;
 	private boolean running = true;
-	@SuppressWarnings("unused")
 	private static History history;
 
 	public TCPServer (Interface inter, History history) throws IOException {	
@@ -124,7 +123,7 @@ public class TCPServer implements Runnable {
                    
                     client.getUser().setPseudo(seg[2]);
                     if (!this.inter.getChatWindowForUser(client.getUser().getHost()).isVisible()) {
-                        this.inter.updateOnlineList(new User(client.getUser().getHost(),client.getUser().getPseudo(),  true));
+                        this.inter.updateOnlineList(new User(client.getUser().getHost(),client.getUser().getHost(),  true));
                         this.inter.updateHome();
                     }
 
