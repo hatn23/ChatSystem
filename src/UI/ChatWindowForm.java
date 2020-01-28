@@ -253,7 +253,7 @@ public class ChatWindowForm extends javax.swing.JFrame {
                 System.out.println("jTextFieldMessageKeyPressed"+ msg);
                 jTextFieldMessage.setText("");
                 new TCPClientThread().sendMessageTo(this.inter, this.client.getUser().getHost(), User.portTCP, msg);
-                this.inter.getChatWindowForUser(client.getUser().getPseudo()).write(msg);
+                this.inter.getChatWindowForUser(client.getUser().getHost()).write(msg);
             } catch (Exception ex) {
                 Logger.getLogger(ChatWindowForm.class.getName()).log(Level.SEVERE, null, ex);
             }

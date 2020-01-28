@@ -111,6 +111,9 @@ public class Interface {
 			if (u.getDisconnect() == false) {
 				if (u.getStatusNewMessage()) {
 					this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
+					System.out.println("u.getPseudo : " + u.getPseudo());
+					System.out.println("u.getHost : " + u.getHost());
+					
 				} else {
 					this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
 				}
