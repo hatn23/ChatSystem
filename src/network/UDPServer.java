@@ -75,6 +75,7 @@ public class UDPServer implements Runnable {
 					this.inter.updateOnlineList(new User(host, pseudo));
 					this.inter.updateHome();
 					this.inter.getChatWindowForUser(host).setTitle(pseudo + ": Chat");
+                                        this.inter.getChatWindowForUser(host).setPseudoLabel(pseudo);
 					this.inter.getHome().writeNotification(oldName + " changed name to " + pseudo);
 				}
 
