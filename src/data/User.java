@@ -14,9 +14,6 @@ public class User implements Serializable {
 	public final static int portTCP = 1345;
 	public final static int portUDP = 1234;
 	
-	/*InetAddress ia = InetAddress.getLocalHost();
-	String addressIP = ia.getHostAddress();*/
-
 	
 	/* Constructors*/
 	public User(String host) throws UnknownHostException {

@@ -122,8 +122,9 @@ public class TCPServer implements Runnable {
                     System.out.println("TCP Server seg[3] :" +seg[3] );
                    
                     client.getUser().setPseudo(seg[2]);
+                    System.out.println("TCP Server run client.getUser.getHost" + client.getUser().getHost());
                     if (!this.inter.getChatWindowForUser(client.getUser().getHost()).isVisible()) {
-                        this.inter.updateOnlineList(new User(client.getUser().getHost(),client.getUser().getHost(),  true));
+                        this.inter.updateOnlineList(new User(client.getUser().getHost(),client.getUser().getPseudo(),  true));
                         this.inter.updateHome();
                     }
 
