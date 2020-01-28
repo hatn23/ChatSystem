@@ -110,9 +110,9 @@ public class Interface {
 		for (User u : this.getOnlineList()) {
 			if (u.getDisconnect() == false) {
 				if (u.getStatusNewMessage()) {
-					this.home.getOnlineList().addElement("[!] " + u.getHost() + ":" + u.getPseudo());
+					this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
 				} else {
-					this.home.getOnlineList().addElement(u.getHost() + ":" + u.getPseudo());
+					this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
 				}
 				if (!this.existChatWindow(u)) { 
 					Message msg = new Message(this.getUser(),u);
