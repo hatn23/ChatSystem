@@ -300,6 +300,7 @@ public class HomeForm extends javax.swing.JFrame {
 				Interface client = new Interface(new User(seg[1], seg[0]));
 				if (seg[0].charAt(0) == "[".charAt(0)) {
 					String split[] = seg[0].split("] ");
+					System.out.println("jListOnlineMouseClicked split[1]");
 					client.getUser().setPseudo(split[1]);
 				}
 

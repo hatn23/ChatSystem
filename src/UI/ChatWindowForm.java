@@ -52,6 +52,7 @@ public class ChatWindowForm extends javax.swing.JFrame {
         this.client = client;
         sourceport = inter.getUser().getPort();
         this.jLabelTitle.setText("Chat : " + client.getUser().getPseudo());
+        this.jLabelHost.setText("My Host : " + inter.getUser().getHost());
     }
 
     /**
@@ -71,6 +72,7 @@ public class ChatWindowForm extends javax.swing.JFrame {
         jLabelMin = new javax.swing.JLabel();
         jLabelTitle = new javax.swing.JLabel();
         jLabelSend = new javax.swing.JLabel();
+        jLabelHost = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chat");
@@ -83,7 +85,6 @@ public class ChatWindowForm extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldMessage.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldMessage.setForeground(new java.awt.Color(0, 0, 0));
         jTextFieldMessage.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -92,9 +93,8 @@ public class ChatWindowForm extends javax.swing.JFrame {
         });
 
         jTextAreaChatBox.setEditable(false);
-        jTextAreaChatBox.setBackground(new java.awt.Color(255, 255, 255));
         jTextAreaChatBox.setColumns(20);
-        jTextAreaChatBox.setForeground(new java.awt.Color(255, 255, 255));
+        jTextAreaChatBox.setForeground(new java.awt.Color(0, 0, 0));
         jTextAreaChatBox.setLineWrap(true);
         jTextAreaChatBox.setRows(5);
         jTextAreaChatBox.setWrapStyleWord(true);
@@ -137,40 +137,50 @@ public class ChatWindowForm extends javax.swing.JFrame {
             }
         });
 
+        jLabelHost.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelHost.setText("MyHost");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextAreaChatBox, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextAreaChatBox, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jTextFieldMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabelAttach)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabelSend))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabelSend)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabelMin)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabelClose))))
+                            .addComponent(jLabelHost))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelMin)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelClose)))
                 .addGap(15, 15, 15))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelMin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelClose, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelMin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelClose, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelHost)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextAreaChatBox, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldMessage)
                     .addComponent(jLabelAttach, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
@@ -240,6 +250,7 @@ public class ChatWindowForm extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
                 String msg = "[" + inter.getUser().getHost() + "] : " + jTextFieldMessage.getText();
+                System.out.println("jTextFieldMessageKeyPressed"+ msg);
                 jTextFieldMessage.setText("");
                 new TCPClientThread().sendMessageTo(this.inter, this.client.getUser().getHost(), User.portTCP, msg);
                 this.inter.getChatWindowForUser(client.getUser().getHost()).write(msg);
@@ -300,7 +311,7 @@ public class ChatWindowForm extends javax.swing.JFrame {
     
 
     public void write(String string) {
-		String message = timeStamp();
+        String message = timeStamp()+ string;
         jTextAreaChatBox.append(message + System.lineSeparator());
         this.msg.addMessage(message);
         History.getInstance().updateHistory(msg);
@@ -310,6 +321,7 @@ public class ChatWindowForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelAttach;
     private javax.swing.JLabel jLabelClose;
+    private javax.swing.JLabel jLabelHost;
     private javax.swing.JLabel jLabelMin;
     private javax.swing.JLabel jLabelSend;
     private javax.swing.JLabel jLabelTitle;

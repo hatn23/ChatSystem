@@ -45,8 +45,8 @@ public class Message implements Serializable {
 	}
 	
 	public void addMessage(String message) {
-        this.message.add(message);
-        ind++;
+            this.message.add(message);
+            ind++;
     }
 	
 	public ArrayList<String> getMessage() {
