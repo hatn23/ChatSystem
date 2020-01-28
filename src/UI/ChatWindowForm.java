@@ -249,7 +249,7 @@ public class ChatWindowForm extends javax.swing.JFrame {
     private void jTextFieldMessageKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMessageKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
-                String msg = "[" + inter.getUser().getHost() + "] : " + jTextFieldMessage.getText();
+                String msg = "[" + inter.getUser().getPseudo() + "] : " + jTextFieldMessage.getText();
                 System.out.println("jTextFieldMessageKeyPressed"+ msg);
                 jTextFieldMessage.setText("");
                 new TCPClientThread().sendMessageTo(this.inter, this.client.getUser().getHost(), User.portTCP, msg);

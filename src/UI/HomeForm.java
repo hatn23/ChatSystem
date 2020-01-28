@@ -44,7 +44,7 @@ public class HomeForm extends javax.swing.JFrame {
 		this.history = history.getInstance();
 		this.onlineListModel = new DefaultListModel<>();
 		for(User u : inter.getOnlineList()){
-			onlineListModel.addElement(u.getHost()+ ":"+ u.getPseudo()+":"+u.getPort());
+			onlineListModel.addElement(u.getPseudo()+ ":"+ u.getHost()+":"+u.getPort());
 		}
 		initComponents();
 		this.jLabelPseudo.setText( " - "+inter.getUser().getPseudo());
@@ -333,7 +333,7 @@ public class HomeForm extends javax.swing.JFrame {
 	}
 
 	public void removeFromList(User user) {
-		this.onlineListModel.removeElement(user.getHost() + ":" + user.getPseudo() + ":" + user.getPort());
+		this.onlineListModel.removeElement(user.getPseudo() + ":" + user.getHost() + ":" + user.getPort());
 	}
 	public void display() {
 		this.setLocationRelativeTo(null);
