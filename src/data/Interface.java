@@ -26,6 +26,10 @@ public class Interface {
 
 	}
 
+	/*Methods*/
+	public History getHistory() {
+		return this.history;
+	}
 	
 	public User getUser() {
 		return this.user;
@@ -102,7 +106,6 @@ public class Interface {
 	}
 
 	public void updateHome() throws SQLException {
-		ChatWindow chatWindow = null;
 		this.home.getOnlineList().removeAllElements();
 		for (User u : this.getOnlineList()) {
 			if (u.getDisconnect() == false) {
@@ -115,14 +118,12 @@ public class Interface {
 					this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
 				}
 				if (!this.existChatWindow(u)) { 
-					if (!(Database.get_History(this.getUser().getHost(),u.getHost()).isEmpty())) {
-						chatWindow = getChatWindowForUser(u.getHost());
-						chatWindow.display_history(Database.get_History(this.getUser().getHost(),u.getHost()));
+					Message msg = new Message(this.getUser(),u);
+					if (History.getInstance().existHistory(msg)) {
+						  msg = History.getInstance().getMessage(this.getUser().getHost(), u.getHost());
 					}
 					else {
-						chatWindow = new ChatWindow(this, new Interface(u));
-						this.setChatWindowForUser(u, chatWindow);
-
+						History.getInstance().addHistory((msg));
 					}
 					ChatWindowForm chatWindow = new ChatWindowForm(this, new Interface(u),msg);
 					this.setChatWindowForUser(u, chatWindow);

@@ -256,7 +256,7 @@ public class LoginForm extends javax.swing.JFrame {
 					runnableTCP.terminate();
 					listenTCP.join();
 				}
-				runnableTCP = new TCPServer(this.inter);
+				runnableTCP = new TCPServer(this.inter, History.getInstance());
 				listenTCP = new Thread(runnableTCP);
 				listenTCP.start();
 
