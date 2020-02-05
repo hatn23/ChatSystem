@@ -8,15 +8,12 @@ package UI;
 import data.Interface;
 import data.Message;
 import data.User;
-import database.Database;
 import database.History;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -291,7 +288,7 @@ public class ChatWindowForm extends javax.swing.JFrame {
         return sdf.format(cal.getTime());
 	}
 	
-	public void display_history(ArrayList<String> History) throws SQLException {
+	/*public void display_history(ArrayList<String> History) throws SQLException {
         java.util.Iterator<String> iter = History.iterator(); 
         
         while(iter.hasNext()) {

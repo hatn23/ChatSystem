@@ -147,7 +147,7 @@ public class LoginForm extends javax.swing.JFrame {
         jTextFieldHost.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
         jButtonLogin.setBackground(new java.awt.Color(52, 152, 219));
-        jButtonLogin.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButtonLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonLogin.setForeground(new java.awt.Color(0, 0, 0));
         jButtonLogin.setText("Login");
         jButtonLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

@@ -131,44 +131,7 @@ public class Interface {
 			}
 		}
 
-	}
-	
-	@SuppressWarnings("unused")
-	/*public void updateHome() throws SQLException {
-		ChatWindow chatWindow = null;
-		System.out.println("OK ChatWindow = null UpdateHome");
-		this.home.getOnlineList().removeAllElements();
-		System.out.println("OK removeAllElements UpdateHome");
-		for (User u : this.getOnlineList()) {
-			System.out.println("OnlineUser" +u.getPseudo());
-			if (u.getDisconnect() == false) {
-				System.out.println("u.getDisconnect == false");
-				if (u.getStatusNewMessage()) {
-					System.out.println("Status New Message" + u.getStatusNewMessage());		
-					this.home.getOnlineList().addElement("[!] " + u.getHost() + ":" + u.getPseudo());
-				} else {
-					this.home.getOnlineList().addElement(u.getHost() + ":" + u.getPseudo());
-				}
-				if (!this.existChatWindow(u)) { 
-					System.out.println("existChatWindow");
-					Message msg = new Message(this.getUser(),u);
-					if (!(Database.get_History(this.getUser().getHost(),u.getHost()).isEmpty())) {
-						chatWindow = getChatWindowForUser(u.getHost());
-						chatWindow.display_history(Database.get_History(this.getUser().getHost(),u.getHost()));
-					}
-					else {
-						chatWindow = new ChatWindow(this, new Interface(u));
-						this.setChatWindowForUser(u, chatWindow);
-
-					}
-					
-				}
-			}
-		}
-
-	}*/
-	
-	
+	}	
 
 	public InetAddress getBroadcast() throws UnknownHostException {
 
@@ -228,15 +191,6 @@ public class Interface {
 			}
 		}
 		return res;
-		/*boolean res = true;
-		try {
-			res = Database.is_Unique(this.user.getPseudo());
-		}
-		catch(SQLException ex) {
-			ex.printStackTrace();
-		}
-		return res;*/
-		
 	}
 	
 	@Override

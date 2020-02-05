@@ -6,10 +6,7 @@
 package UI;
 
 import data.*;
-import database.Database;
 import java.awt.event.KeyEvent;
-//import java.lang.System.Logger;
-//import java.lang.System.Logger.Level;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import network.*;
@@ -97,8 +94,8 @@ public class ChangePseudoForm extends javax.swing.JFrame {
             }
         });
 
-        jButtonCancel.setBackground(new java.awt.Color(102, 102, 102));
-        jButtonCancel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButtonCancel.setBackground(new java.awt.Color(231, 76, 60));
+        jButtonCancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonCancel.setText("Cancel");
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,7 +103,7 @@ public class ChangePseudoForm extends javax.swing.JFrame {
             }
         });
 
-        jButtonConfirm.setBackground(new java.awt.Color(255, 51, 51));
+        jButtonConfirm.setBackground(new java.awt.Color(52, 152, 219));
         jButtonConfirm.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonConfirm.setText("Confirm");
         jButtonConfirm.addActionListener(new java.awt.event.ActionListener() {
@@ -331,10 +328,11 @@ public class ChangePseudoForm extends javax.swing.JFrame {
 public Boolean checkPseudoUnique(String pseudo) {
     Boolean unique = true;
     
-         try {
-             unique = Database.is_Unique(pseudo);
-         } catch (SQLException ex) {
-             java.util.logging.Logger.getLogger(ChangePseudoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+         for (User u : this.home.getInterface().getOnlineList()) {
+        	 System.out.println(u.getPseudo());
+        	 if (u.getPseudo().equals(pseudo)) {
+        		 unique = false;
+        	 }
          }
          return unique;
 	}
