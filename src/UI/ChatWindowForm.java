@@ -287,24 +287,6 @@ public class ChatWindowForm extends javax.swing.JFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("[HH:mm, dd/MM/yyyy] - ");
         return sdf.format(cal.getTime());
 	}
-	
-	/*public void display_history(ArrayList<String> History) throws SQLException {
-        java.util.Iterator<String> iter = History.iterator(); 
-        
-        while(iter.hasNext()) {
-        	String this_msg =iter.next();
-        	String reciever = Database.get_Username(Database.get_Receiver(this_msg)) + " \n";
-        	String message= this_msg + " \n";
-        	String Time= Database.get_Time(this_msg) + " \n";
-        	jTextAreaChatBox.append(reciever);
-        	jTextAreaChatBox.append(message);
-        	jTextAreaChatBox.append(Time);
-        	jTextAreaChatBox.append("\n");
-        }
-        
-	}/**
-     * @param args the command line arguments
-     */
     
 
     public void write(String string) {
