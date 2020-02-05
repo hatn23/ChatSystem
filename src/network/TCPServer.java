@@ -23,11 +23,12 @@ public class TCPServer implements Runnable {
 	private Socket chatSocket;
 	private Interface inter;
 	private boolean running = true;
-	//private static History history;
+	@SuppressWarnings("unused")
+	private static History history;
 
-	public TCPServer (Interface inter) throws IOException {	
+	public TCPServer (Interface inter, History history) throws IOException {	
 		this.inter = inter;
-		//TCPServer.history = History.getInstance();
+		TCPServer.history = History.getInstance();
 		this.serverSocket = new ServerSocket(User.portTCP);
 		this.inter.getUser().setPort(this.serverSocket.getLocalPort());
 	}
@@ -116,9 +117,15 @@ public class TCPServer implements Runnable {
                     /* Write the message on the chat window between this inter and client */
 
                     String seg[] = message.split(":");
+                    System.out.println("TCP Server seg[0] :" +seg[0] );
+                    System.out.println("TCP Server seg[1] :" +seg[1] );
+                    System.out.println("TCP Server seg[2] :" +seg[2] );
+                    System.out.println("TCP Server seg[3] :" +seg[3] );
+                   
                     client.getUser().setPseudo(seg[2]);
+                    System.out.println("TCP Server run client.getUser.getHost" + client.getUser().getHost());
                     if (!this.inter.getChatWindowForUser(client.getUser().getHost()).isVisible()) {
-                        this.inter.updateOnlineList(new User(client.getUser().getPseudo(), client.getUser().getHost(), true));
+                        this.inter.updateOnlineList(new User(client.getUser().getHost(),client.getUser().getPseudo(),  true));
                         this.inter.updateHome();
                     }
 
@@ -136,7 +143,7 @@ public class TCPServer implements Runnable {
                     initializeElements(seg[3], seg[1], img, seg[2]);
 
                 }
-				//chatSocket.close();
+			
 			}
 		}
 		catch (IOException | SQLException e) {

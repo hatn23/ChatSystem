@@ -8,10 +8,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UDPClient implements Runnable {
+
+	/*
+	 * Attributs
+	 */
 	private DatagramSocket dgramSocket;
 	private final DatagramPacket outPacket;
 	private final String message;
 
+	/*
+	 *   Constructors
+	 */
 	public UDPClient (String host, int port, String message) throws UnknownHostException {
 		this.message = message;
 		outPacket = new DatagramPacket(message.getBytes(), message.length());
@@ -27,20 +34,21 @@ public class UDPClient implements Runnable {
 	}
 
 
-
+	@Override
 	public void run() {
 		try {
+			//request a connexion to the given user
 			this.dgramSocket = new DatagramSocket();
 			dgramSocket.send(outPacket);
 			dgramSocket.close();
 		}
 
-		catch (SocketException e){
-			Logger.getLogger(UDPClient.class.getName()).log(Level.SEVERE, null, e);
+		catch (SocketException ex){
+			Logger.getLogger(UDPClient.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
-		catch (IOException e){
-			Logger.getLogger(UDPClient.class.getName()).log(Level.SEVERE, null, e);
+		catch (IOException ex){
+			Logger.getLogger(UDPClient.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 

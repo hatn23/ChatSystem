@@ -11,21 +11,23 @@ public class Interface {
 	private ArrayList<User> onlineList; 
 	private String message = "";
 	private HomeForm home;
-	private final HashMap<String, ChatWindow> chatWindowForUser;
-	private static final Database history = null;
+	private final HashMap<String, ChatWindowForm> chatWindowForUser; //String -> ipAddress
+	private final History history = null;
 
 	/* Constructors*/
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Interface(User user) {
 		this.user = user;
 		this.onlineList = new ArrayList();
-		//this.home = new HomeForm(this,History.getInstance());
+		this.home = new HomeForm(this,History.getInstance());
+		//this.home = new HomeForm(this);
 		this.chatWindowForUser = new HashMap<>();
 
 	}
 
 	/*Methods*/
-	public Database getHistory() {
+	public History getHistory() {
 		return this.history;
 	}
 	
@@ -75,16 +77,16 @@ public class Interface {
 				System.out.println("[user] This user is already on the list");
 				if (userInList.getPseudo().equals(u.getPseudo())) {
 				} else {
-					System.out.println(" Name change " + userInList.getPseudo() + " > " + u.getPseudo());
+					System.out.println(" Name change " + userInList.getPseudo() + " -> " + u.getPseudo());
 					userInList.setPseudo(u.getPseudo());
-					this.message = " Name change " + userInList.getPseudo() + " > " + u.getPseudo();
+					this.message = " Name change " + userInList.getPseudo() + " -> " + u.getPseudo();
 				}
-				if (u.isActive() == true) {
+				if (u.getDisconnect() == false) {
 					System.out.println(" Status:connected ");
-					userInList.setActive(true);
+					userInList.setDisconnect(false);
 				} else {
 					System.out.println(" Status:disconnected ");
-					userInList.setActive(false);
+					userInList.setDisconnect(true);
 				}
 				if (u.getStatusNewMessage() == false) {
 					userInList.setNewMessage(false);
@@ -106,27 +108,30 @@ public class Interface {
 	public void updateHome() throws SQLException {
 		this.home.getOnlineList().removeAllElements();
 		for (User u : this.getOnlineList()) {
-			if (u.isActive() == true) {
+			if (u.getDisconnect() == false) {
 				if (u.getStatusNewMessage()) {
 					this.home.getOnlineList().addElement("[!] " + u.getPseudo() + ":" + u.getHost());
+					System.out.println("u.getPseudo : " + u.getPseudo());
+					System.out.println("u.getHost : " + u.getHost());
+					
 				} else {
 					this.home.getOnlineList().addElement(u.getPseudo() + ":" + u.getHost());
 				}
 				if (!this.existChatWindow(u)) { 
 					Message msg = new Message(this.getUser(),u);
-					/*if (History.getInstance().existHistory(msg)) {
-						  //msg = History.getInstance().get_History(this.getUser(), u);
+					if (History.getInstance().existHistory(msg)) {
+						  msg = History.getInstance().getMessage(this.getUser().getHost(), u.getHost());
 					}
 					else {
-						History.getInstance().Insert_new_Message(msg);
-					}*/
-					ChatWindow chatWindow = new ChatWindow(this, new Interface(u));
+						History.getInstance().addHistory((msg));
+					}
+					ChatWindowForm chatWindow = new ChatWindowForm(this, new Interface(u),msg);
 					this.setChatWindowForUser(u, chatWindow);
 				}
 			}
 		}
 
-	}
+	}	
 
 	public InetAddress getBroadcast() throws UnknownHostException {
 
@@ -159,11 +164,11 @@ public class Interface {
 		return res;
 	}
 
-	public void setChatWindowForUser(User user, ChatWindow chatWindow) {
+	public void setChatWindowForUser(User user, ChatWindowForm chatWindow) {
 		this.chatWindowForUser.put(user.getHost(), chatWindow);
 	}
 
-	public ChatWindow getChatWindowForUser(String ipAddress) {
+	public ChatWindowForm getChatWindowForUser(String ipAddress) {
 		return this.chatWindowForUser.get(ipAddress);
 	}
 
@@ -172,29 +177,20 @@ public class Interface {
 	}
 
 	public void closeAllChatWindow() {
-		for (ChatWindow c : chatWindowForUser.values()) {
+		for (ChatWindowForm c : chatWindowForUser.values()) {
 			c.closeWindow();
 		}
 	}
 
 	public boolean checkPseudo() {
-		/*Boolean res = true;
+		Boolean res = true;
 		for (User user : this.getOnlineList()) {
 			System.out.println(user.getPseudo());
 			if (this.getUser().getPseudo().equals(user.getPseudo())) {
 				res = false;
 			}
 		}
-		return res;*/
-		boolean res = true;
-		try {
-			res = Database.is_Unique(this.user.getPseudo());
-		}
-		catch(SQLException ex) {
-			ex.printStackTrace();
-		}
 		return res;
-		
 	}
 	
 	@Override

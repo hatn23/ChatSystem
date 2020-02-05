@@ -2,10 +2,11 @@ package data;
 import java.io.Serializable;
 import java.net.*;
 
+@SuppressWarnings("serial")
 public class User implements Serializable {
 	private String host;
 	private String pseudonyme;
-	private boolean active;
+	private boolean disconnect;
 	private int port;
 
 	private boolean newMessage;
@@ -13,38 +14,35 @@ public class User implements Serializable {
 	public final static int portTCP = 1345;
 	public final static int portUDP = 1234;
 	
-	/*InetAddress ia = InetAddress.getLocalHost();
-	String addressIP = ia.getHostAddress();*/
-
 	
 	/* Constructors*/
 	public User(String host) throws UnknownHostException {
 		this.host = host;
-		this.active = false;
+		this.disconnect = false;
 		this.port = portTCP;
 		this.newMessage = false;
 	}
 	
-	public User(String host, String Pseudo) throws UnknownHostException {
-		this.pseudonyme = Pseudo;
+	public User(String host, String pseudo) throws UnknownHostException {
+		this.pseudonyme = pseudo;
 		this.host = host;
-		this.active = false;
+		this.disconnect = false;
 		this.port = portTCP;
 		this.newMessage = false;
 	}
 	
-	public User(String host,String Pseudo, int Port) throws UnknownHostException {
-		this.pseudonyme = Pseudo;
+	public User(String host,String pseudo, int Port) throws UnknownHostException {
+		this.pseudonyme = pseudo;
 		this.host = host;
-		this.active = false;
+		this.disconnect = false;
 		this.port = Port;
 		this.newMessage = false;
 	}
 	
-	public User(String host,String Pseudo, Boolean newMessage) throws UnknownHostException {
-		this.pseudonyme = Pseudo;
+	public User(String host,String pseudo, Boolean newMessage) throws UnknownHostException {
+		this.pseudonyme = pseudo;
 		this.host = host;
-		this.active = false;
+		this.disconnect = false;
 		this.port = portTCP;
 		this.newMessage = newMessage;
 	}
@@ -57,19 +55,12 @@ public class User implements Serializable {
 	public String getHost() {
 		return this.host;
 	}
-	/*verifier l'unicité!!!!!!!!!!!!!*/
-	public void setPseudo(String NewPseudo) {
-		this.pseudonyme = NewPseudo;
+	public void setPseudo(String newPseudo) {
+		this.pseudonyme = newPseudo;
 	}
 
 	public String getPseudo() {
 		return this.pseudonyme;
-	}
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-	public Boolean isActive() {
-		return this.active;
 	}
 	public int getPort() {
 		 return this.port;
@@ -85,8 +76,17 @@ public class User implements Serializable {
 		this.newMessage = newMsg;
 		
 	}
+	
+	public void setDisconnect(boolean status) {
+		this.disconnect = status;
+	}
+	public boolean getDisconnect() {
+		return this.disconnect;
+	}
 	@Override
     public String toString() {
         return this.pseudonyme + " (" + this.host + " : " + this.port + ")";
     }
+
+	
 }
